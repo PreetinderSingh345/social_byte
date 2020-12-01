@@ -12,6 +12,9 @@
         <link rel="stylesheet" type="text/css" href="/css/layout.css">
         <!-- above is the link to the external stylesheet relative to the assets folder(path indicated by static middleware) -->
 
+        <%-style%>
+        <!-- above is the style link of the specific file i.e. being rendered and it is provided below the above link to overwrite the basic styling -->
+
     </head>
 
     <body>
@@ -27,6 +30,9 @@
         <!-- including the common footer content -->
 
         <%-include("_footer")%>
+
+        <%-script%>
+        <!-- above is the link to the external js file of the specific file which is being rendered -->
         
     </body>
 </html>
