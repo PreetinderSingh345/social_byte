@@ -5,6 +5,8 @@ const expressLayouts=require("express-ejs-layouts");//requiring express ejs layo
 
 app.use(expressLayouts);//using middleware to tell the sever that we are using the above required express layouts(to be told before a request is handled, i.e. before the routes are handled using the below middleware)
 
+app.use(express.static("./assets"));//using middleware to tell the location of where the server has to look for static data like - css, js, images etc.
+
 app.set("view engine", "ejs");//telling the server about the view engine we're using
 app.set("views", "./views");//providing the path to the views section/folder 
 

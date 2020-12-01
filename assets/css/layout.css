@@ -1,0 +1,13 @@
+/* common styling for all the files */
+
+body{
+
+    height: 97vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+    background-color: rgb(210, 234, 241);
+
+}
