@@ -1,0 +1,29 @@
+<!-- wrapper over different files which are being rendered -->
+
+<html>
+    <head>
+
+        <!-- dynamic title of the page i.e. to be rendered -->
+
+        <title>
+            <%=title%>
+        </title>
+
+    </head>
+
+    <body>
+
+        <!-- including the common header content -->
+
+        <%-include("_header")%>
+
+        <!-- including the page specific body content -->
+
+        <%-body%>
+
+        <!-- including the common footer content -->
+
+        <%-include("_footer")%>
+        
+    </body>
+</html>
