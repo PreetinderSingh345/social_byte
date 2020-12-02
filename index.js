@@ -2,6 +2,7 @@ const express=require("express");//requiring express
 const app=express();//firing up the express server/app
 const port=8000;//port number on which the server is to be run
 const expressLayouts=require("express-ejs-layouts");//requiring express ejs layouts
+const db=require("./config/mongoose");//requiring the database
 
 app.use(expressLayouts);//using middleware to tell the sever that we are using the above required express layouts(to be told before a request is handled, i.e. before the routes are handled using the below middleware)
 
