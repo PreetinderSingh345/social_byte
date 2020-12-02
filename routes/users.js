@@ -8,4 +8,8 @@ router.get("/sign-up", usersController.signUp)//for handling the requests at "/s
 
 router.get("/sign-in", usersController.signIn);//for handling the requests at "/sign-in" route, we call the signIn action of the usersController
 
+router.post("/create", usersController.create);//for handling the requests at "/create" route, we call the create action of the usersController
+
+router.post("/create-session", usersController.createSession);//for handling the requests at "/create-session", we call the createSession action of the usersController
+
 module.exports=router;//exporting the router, so that it can be accessed by the server to handle the incoming requests

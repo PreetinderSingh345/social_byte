@@ -21,3 +21,15 @@ module.exports.signIn=function(req, res){//signIn action for handling the sign i
     });
 
 }
+
+module.exports.create=function(req, res){//create action for handling the create requests and we're exporting it, so that it can be accessed inside routes
+
+    return res.end("<h1>Creating a user</h1>");
+
+}
+
+module.exports.createSession=function(req, res){//createSession action for handling the create session requests and we're exporting it, so that it can be accessed inside routes
+
+    return res.end("<h1>Creating a session</h1>");
+
+}
