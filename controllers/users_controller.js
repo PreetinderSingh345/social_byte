@@ -75,6 +75,37 @@ module.exports.create=function(req, res){//create action for handling the create
 
 module.exports.createSession=function(req, res){//createSession action for handling the create session requests and we're exporting it, so that it can be accessed inside routes
 
-    return res.end("<h1>Creating a session</h1>");
+    // return res.end("<h1>Creating a session</h1>");
+
+    User.findOne({email: req.body.email}, function(err, user){//finding a user with the email the user has provided while trying to sign in and we have a corresponding callback function to handle the situation
+        
+        if(err){//if there is an error while finding a user with the provided email 
+            
+            console.log(`Error in finding user while sign in : ${err}`);//we print a relevant error message and simply return 
+
+            return ;
+
+        }
+
+        if(!user){//if there is no user with the provided email, then we redirect back to the sign in page
+            return res.redirect("back");
+        }
+        else{//if a user has been found with the provided email
+
+            if(user.password!=req.body.password){//if the user has not entered the password correctly, then we redirect back to the sign in page 
+
+                return res.redirect("back");
+
+            }
+
+            // if the user has been authenticated with the help of email(unique) and password
+
+            res.cookie("user_id", user.id);//create a key-value pair for user id in the cookie(this id is unique for each user)
+
+            return res.redirect("/users/profile");//redirect the user to the profile page
+
+        }        
+
+    });
 
 }
