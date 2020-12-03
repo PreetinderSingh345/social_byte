@@ -149,3 +149,10 @@ module.exports.createSession=function(req, res){//createSession action for handl
     });
 
 }
+
+module.exports.signOut=function(req, res){//signOut action for handling the sign out requests and we're exporting it, so that it can be accessed inside routes
+
+    res.clearCookie("user_id");//clearing the key named "user_id" from the cookie
+    return res.redirect("/users/sign-in");//redirecting the user to the sign in page 
+
+}
