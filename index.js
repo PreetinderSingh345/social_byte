@@ -3,6 +3,11 @@ const app=express();//firing up the express server/app
 const port=8000;//port number on which the server is to be run
 const expressLayouts=require("express-ejs-layouts");//requiring express ejs layouts
 const db=require("./config/mongoose");//requiring the database
+const cookieParser=require("cookie-parser");//requiring cookie-parser for parsing the cookie 
+
+app.use(express.urlencoded());//using middleware to decode the incoming request with the help of a parser function, so that we can access req.body object
+
+app.use(cookieParser());//using middleware to decode the cookie data, so that we can access req.cookies object, use res.cookie() etc.
 
 app.use(expressLayouts);//using middleware to tell the sever that we are using the above required express layouts(to be told before a request is handled, i.e. before the routes are handled using the below middleware)
 
