@@ -2,9 +2,42 @@ const User=require("../models/user");//requiring the User model for which the us
 
 module.exports.profile=function(req, res){//profile controller function/action and we're exporting it, so that it can be accessed in the router section/folder
 
-    return res.render("user_profile", {
-        title: "Profile"
-    });
+    if(!req.cookies.user_id){//in case the user's identity is not stored inside the cookie, then the user is not signed in, so we redirect the user to the sign in page
+
+        return res.redirect("/users/sign-in");
+
+    }
+    else{//in case the user's identity is stored inside the cookie, then the user is signed in 
+
+        User.findOne({_id: req.cookies.user_id}, function(err, user){//find the user with the help of its id, which is unique for every user and we have a corresponding callback function to handle the situation
+
+            if(err){//if there is an error while finding the user
+
+                console.log(`Error in finding user while fetching profile : ${err}`);//we print a relevant error message and simply return 
+
+                return ;
+
+            }
+
+            if(!user){//if there is no user with the id as stored in the cookie(for e.g. if someone alters the cookie data), then we redirect the user to the sign in page 
+
+                return res.redirect("/users/sign-in");
+
+            }
+            else{//if there is a user with the id as stored in the cookie
+
+                return res.render("user_profile", {//we render the profile page as the response with the dynamic data(title and user object) 
+
+                    title: "Profile",
+                    user: user            
+
+                });
+
+            }
+
+        });
+
+    }    
 
 }
 
@@ -102,7 +135,14 @@ module.exports.createSession=function(req, res){//createSession action for handl
 
             res.cookie("user_id", user.id);//create a key-value pair for user id in the cookie(this id is unique for each user)
 
-            return res.redirect("/users/profile");//redirect the user to the profile page
+            // return res.redirect("/users/profile");//redirect the user to the profile page
+
+            return res.render("user_profile", {//rendering the user_profile page as the response along with the dynamic content of title, name and email
+
+                title: "Profile",
+                user: user
+
+            });
 
         }        
 
