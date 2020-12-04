@@ -12,8 +12,10 @@ app.use(session({//using middleware to specify the properties of the session coo
 
     name: "social_byte",//name of the session cookie
     secret: "this_is_a_secret",//key i.e. used for encryption/decryption purpose(TODO - change the secret before deployment in production mode)
-    saveUninitialized: false,
-    resave: false,
+
+    saveUninitialized: false,//to make sure that we are not storing extra data inside the session cookie, when the user is not signed in 
+
+    resave: false,//to make sure that we are not saving the session unnecessarily even when it is not changing
 
     cookie: {
         maxAge: (100*60*1000),//after 100 minutes, the session cookie will expire(time is provided in milli seconds)
@@ -23,6 +25,8 @@ app.use(session({//using middleware to specify the properties of the session coo
 
 app.use(passport.initialize());//using middleware to tell the server to initialize passport
 app.use(passport.session());//using middleware to tell the server to create a passport session
+
+app.use(passport.setAuthenticatedUser);//using middleware to obtain the user from the session cookie
 
 app.use(express.urlencoded());//using middleware to decode the incoming request with the help of a parser function, so that we can access req.body object
 

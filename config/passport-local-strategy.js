@@ -70,4 +70,33 @@ passport.deserializeUser(function(id, done){//this deserializeUser method of pas
 
 });
 
+// check if the user is authenticated
+
+passport.checkAuthentication=function(req, res, next){//this checkAuthentication function is used to check whether the user has been authenticated or not and it is a middleware taking req, res and next as the parameters
+
+    if(req.isAuthenticated()){//if the user is authenticated/signed-in(checked using inbuilt isAuthenticated function), then we let the next middleware be executed and the user can view the profile page
+
+        return next();
+
+    }
+
+    // if the user is not authenticated/signed-in, then we redirect the user to the sign in page
+    return res.redirect("/users/sign-in");
+
+}
+
+// setting the authenticated user
+
+passport.setAuthenticatedUser=function(req, res, next){//this setAuthenticatedUser function is used to obtain the user from the session cookie for the response and it is a middleware taking req, res and next as the parameters
+
+    if(req.isAuthenticated()){//if the user is authenticated/signed-in
+
+        res.locals.user=req.user;//setting res.locals.user object i.e. used for providing the dynamic user data inside views to req.user object i.e. obtained from the session cookie
+
+    }
+
+    return next();//let the next middleware be executed
+
+}
+
 module.exports=passport;//exporting the passport library

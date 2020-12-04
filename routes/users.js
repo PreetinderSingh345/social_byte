@@ -3,7 +3,9 @@ const router=express.Router();//getting the router
 const usersController=require("../controllers/users_controller");//getting the users controller
 const passport=require("passport");//requiring passport
 
-router.get("/profile", usersController.profile);//for handling the requests at "/profile" route, we call the profile action of the usersController
+// router.get("/profile", usersController.profile);//for handling the requests at "/profile" route, we call the profile action of the usersController
+
+router.get("/profile", passport.checkAuthentication, usersController.profile);//for handling the requests at "/profile" route, we call the profile action of the usersController and we're using checkAuthentication as a middleware for making sure that the profile page is accessible only if the user is signed in 
 
 router.get("/sign-up", usersController.signUp)//for handling the requests at "/sign-up"(using kebab case for routes) route, we call the signUp action of the usersController
 
@@ -20,6 +22,6 @@ router.post("/create-session", passport.authenticate(//authenticating the reques
 
     // authentication takes place inside the passport-local-strategy file we've set up inside config
 
-), usersController.createSession);//for handling the requests at "/create-session" route, we call the createSession action of the usersController and we are using passport as a middleware for authentication
+), usersController.createSession);//for handling the requests at "/create-session" route, we call the createSession action of the usersController and we are using authenticate as a middleware for authentication
 
 module.exports=router;//exporting the router, so that it can be accessed by the server to handle the incoming requests
