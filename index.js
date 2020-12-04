@@ -7,6 +7,7 @@ const cookieParser=require("cookie-parser");//requiring cookie-parser for parsin
 const session=require("express-session");//requiring express session(used for session cookie)
 const passport=require("passport");//requiring passport
 const passportLocal=require("./config/passport-local-strategy");//requiring the passport-local-strategy file we've set up inside config 
+const mongoStore=require("connect-mongo")(session);//requiring connect mongo and we are required to pass the session(required above) whose information we are going to store using mongoStore
 
 app.use(session({//using middleware to specify the properties of the session cookie
 
@@ -19,7 +20,25 @@ app.use(session({//using middleware to specify the properties of the session coo
 
     cookie: {
         maxAge: (100*60*1000),//after 100 minutes, the session cookie will expire(time is provided in milli seconds)
-    }
+    },
+
+    store: new mongoStore({//to store the session cookie using mongoStore to make sure that the user is not signed out after a server restart, so we create an instance of mongoStore to do the same
+        
+        mongooseConnection: db,//the instance of mongoStore created above requires a connection to the database
+        autoRemove: "disabled",//disabling the automatical removal of the session cookie
+
+    }, function(err){//callback function to handle any error while trying to setup connect-mongo 
+
+        if(err){//if there is an error while trying to setup connect-mongo
+
+            console.log(`Error in setting up connect-mongo : ${err}`);//we print a relevant error message and simply return 
+            return ;
+
+        }        
+
+        console.log("Successfully setup connect-mongo");//we print a confirmation message if connect-mongo is successfully setup
+
+    })
 
 }));
 
