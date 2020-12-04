@@ -1,6 +1,7 @@
 const express=require("express");//requiring express and its available instance will be used
 const router=express.Router();//getting the router
 const usersController=require("../controllers/users_controller");//getting the users controller
+const passport=require("passport");//requiring passport
 
 router.get("/profile", usersController.profile);//for handling the requests at "/profile" route, we call the profile action of the usersController
 
@@ -10,6 +11,15 @@ router.get("/sign-in", usersController.signIn);//for handling the requests at "/
 
 router.post("/create", usersController.create);//for handling the requests at "/create" route, we call the create action of the usersController
 
-router.post("/create-session", usersController.createSession);//for handling the requests at "/create-session", we call the createSession action of the usersController
+// router.post("/create-session", usersController.createSession);//for handling the requests at "/create-session", we call the createSession action of the usersController
+
+router.post("/create-session", passport.authenticate(//authenticating the request using passport
+
+    "local",//specifying the passport stragey we're using
+    {failureRedirect: "/users/sign-in"}//redirecting to the sign in page in case the authentication fails
+
+    // authentication takes place inside the passport-local-strategy file we've set up inside config
+
+), usersController.createSession);//for handling the requests at "/create-session" route, we call the createSession action of the usersController and we are using passport as a middleware for authentication
 
 module.exports=router;//exporting the router, so that it can be accessed by the server to handle the incoming requests

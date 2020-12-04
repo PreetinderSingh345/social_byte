@@ -75,6 +75,8 @@ module.exports.create=function(req, res){//create action for handling the create
 
 module.exports.createSession=function(req, res){//createSession action for handling the create session requests and we're exporting it, so that it can be accessed inside routes
 
-    return res.end("<h1>Creating a session</h1>");
+    // return res.end("<h1>Creating a session</h1>");
+
+    return res.redirect("/");//redirecting the user to the home page when a session is successfully created after authentication through passport
 
 }

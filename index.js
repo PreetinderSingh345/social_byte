@@ -4,6 +4,25 @@ const port=8000;//port number on which the server is to be run
 const expressLayouts=require("express-ejs-layouts");//requiring express ejs layouts
 const db=require("./config/mongoose");//requiring the database
 const cookieParser=require("cookie-parser");//requiring cookie-parser for parsing the cookie 
+const session=require("express-session");//requiring express session(used for session cookie)
+const passport=require("passport");//requiring passport
+const passportLocal=require("./config/passport-local-strategy");//requiring the passport-local-strategy file we've set up inside config 
+
+app.use(session({//using middleware to specify the properties of the session cookie
+
+    name: "social_byte",//name of the session cookie
+    secret: "this_is_a_secret",//key i.e. used for encryption/decryption purpose(TODO - change the secret before deployment in production mode)
+    saveUninitialized: false,
+    resave: false,
+
+    cookie: {
+        maxAge: (100*60*1000),//after 100 minutes, the session cookie will expire(time is provided in milli seconds)
+    }
+
+}));
+
+app.use(passport.initialize());//using middleware to tell the server to initialize passport
+app.use(passport.session());//using middleware to tell the server to create a passport session
 
 app.use(express.urlencoded());//using middleware to decode the incoming request with the help of a parser function, so that we can access req.body object
 
