@@ -3,3 +3,51 @@
 <header>
     Header
 </header>
+
+<!-- adding some options in the header section -->
+
+<ul>
+
+    <!-- checking if the user is signed in or not(we are using locals.user instead of user, so that we don't get an error that user is not defined as a property which not the case with locals.user which is a property) -->
+
+    <%if(locals.user){%>
+
+        <!-- when locals.user has been assigned a value i.e. the user is signed in, then we display the user's name,email and a sign out link -->
+
+        <li>
+
+            <!-- this name link takes the user to the profile page -->
+            <a href="/users/profile"><%=user.name%></a>
+
+        </li>
+
+        <li><%=user.email%></li>        
+
+        <li>
+
+            <!-- providing a link for signing out -->
+            <a href="/users/sign-out">Sign Out</a>
+
+        </li>
+
+    <%}else{%>
+
+        <!-- when the user is not signed in -->
+
+        <li>
+
+            <!-- providing a link for signing in -->
+            <a href="/users/sign-in">Sign In</a>
+
+        </li>
+
+        <li>
+
+            <!-- providing a link for signing up -->
+            <a href="/users/sign-up">Sign Up</a>
+
+        </li>
+
+    <%}%>
+
+</ul>

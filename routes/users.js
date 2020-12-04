@@ -24,4 +24,6 @@ router.post("/create-session", passport.authenticate(//authenticating the reques
 
 ), usersController.createSession);//for handling the requests at "/create-session" route, we call the createSession action of the usersController and we are using authenticate as a middleware for authentication
 
+router.get("/sign-out", usersController.destroySession);//for handling the requests at "/sign-out" route, we call the destroySession action of the usersController 
+
 module.exports=router;//exporting the router, so that it can be accessed by the server to handle the incoming requests

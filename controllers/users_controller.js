@@ -94,3 +94,11 @@ module.exports.createSession=function(req, res){//createSession action for handl
     return res.redirect("/");//redirecting the user to the home page when a session is successfully created after authentication through passport
 
 }
+
+module.exports.destroySession=function(req, res){//destroySession action for handling the sign out requests and we're exporting it, so that it can be accessed inside routes
+
+    req.logout();//calling the logout function given to the request via passport(just like isAuthenticated), to remove the session cookie 
+
+    return res.redirect("/");//redirecting the user to the home page after the session is destroyed i.e. the user is signed out
+
+}
