@@ -8,6 +8,21 @@ const session=require("express-session");//requiring express session(used for se
 const passport=require("passport");//requiring passport
 const passportLocal=require("./config/passport-local-strategy");//requiring the passport-local-strategy file we've set up inside config 
 const mongoStore=require("connect-mongo")(session);//requiring connect mongo and we are required to pass the session(required above) whose information we are going to store using mongoStore
+const sassMiddleware=require("node-sass-middleware");//requiring the node sass middleware
+
+app.use(sassMiddleware({//using sass middleware to setup properties for using sass
+
+    src: "./assets/scss",//setting up the source from where the scss files are to be taken and converted into css files while sending to the browser
+
+    dest: "./assets/css",//setting up the destination of the converted css files which are sent to the browser 
+
+    debug: true,//letting errors to be shown up, if any, while the conversion of scss files to css(not to be shown in production mode)
+
+    outputStyle: "expanded",//setting up the output style for the scss code to expanded 
+    
+    prefix: "/css"//setting up prefix, which is the immediate path after the assets folder where we are to look for the css files
+
+}));
 
 app.use(session({//using middleware to specify the properties of the session cookie
 
