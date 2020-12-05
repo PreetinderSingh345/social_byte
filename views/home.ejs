@@ -24,4 +24,23 @@
 
     </form>
 
+    <!-- posts list showing all the posts -->
+
+    <ul id="posts-list">
+
+        <!-- iterating on all the posts -->
+
+        <%for(i of posts){%>
+            <li>
+
+                <!-- showing the content and the author of each post -->
+
+                <span><%=i.content%></span>
+                <span> : </span>
+                <span><%=i.user.name%></span>             
+
+            </li>
+        <%}%>
+    </ul>
+
 </section>
