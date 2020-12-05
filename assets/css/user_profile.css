@@ -1,0 +1,13 @@
+/* user_profile specific styling */
+h1 {
+  color: whitesmoke;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  width: 200px;
+  background-color: #5bc6f8;
+  border-radius: 50%;
+  text-shadow: 2px 2px 4px #99bee9;
+}

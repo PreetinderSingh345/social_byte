@@ -1,0 +1,10 @@
+/* common styling for all the files */
+body {
+  height: 97vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: sans-serif;
+  background-color: #d2eaf1;
+}
