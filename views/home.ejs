@@ -43,7 +43,30 @@
 
                 <span><%=i.content%></span>
                 <span> : </span>
-                <span><%=i.user.name%></span>             
+                <span><%=i.user.name%></span>    
+                
+                <!-- post comments container for each post -->
+
+                <div class="post-comments">
+
+                    <!-- showing the user a form to add comments on each post when the user is signed in -->
+
+                    <%if(locals.user){%>
+
+                        <form action="/comments/create" method="POST">
+
+                            <input type="text" name="content" placeholder="Comment here...">
+
+                            <!-- hidden input for sending the id of the post on which the comment has been made -->
+
+                            <input type="hidden" name="post" value="<%=i._id%>">                           
+                            <input type="submit" value="Comment">
+
+                        </form>
+
+                    <%}%>
+
+                </div>
 
             </li>
         <%}%>
