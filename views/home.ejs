@@ -23,14 +23,14 @@
 
         <form action="/posts/create" method="POST" id="posts-form">
 
-            <textarea name="content" cols="30" rows="5" placeholder="Post here..."></textarea>
+            <textarea name="content" cols="30" rows="5" placeholder="Post here..." required></textarea>
             <input type="submit" value="Post">
 
         </form>
 
     <%}%>
 
-    <!-- posts list showing all the posts -->
+    <!-- posts list showing all the posts and the posts should be shown even if the user is not signed in -->
 
     <ul id="posts-list">
 
@@ -55,7 +55,7 @@
 
                         <form action="/comments/create" method="POST">
 
-                            <input type="text" name="content" placeholder="Comment here...">
+                            <input type="text" name="content" placeholder="Comment here..." required>
 
                             <!-- hidden input for sending the id of the post on which the comment has been made -->
 
@@ -65,6 +65,24 @@
                         </form>
 
                     <%}%>
+
+                    <!-- post comments list container to show all the comments made on a post and the comments should be made visible even if the user is not signed in -->
+
+                    <ul class="post-comments-list" id="post-comments-<%=i._id%>">
+
+                        <%for(j of i.comments){%>
+                            <li>
+                                
+                                <!-- showing each comment made on a post along with the author -->
+
+                                <span><%=j.content%></span>                                
+                                <span> : </span>
+                                <span><%=j.user.name%></span>
+
+                            </li>
+                        <%}%>
+
+                    </ul>
 
                 </div>
 

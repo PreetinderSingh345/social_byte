@@ -1,3 +1,4 @@
+const { populate } = require("../models/post");
 const Post=require("../models/post");//requiring the Post model for which the postSchema has been defined
 
 module.exports.home=function(req, res){//home controller function/action and we are exporting it, so that it can be accesssed in the router section/folder
@@ -13,9 +14,18 @@ module.exports.home=function(req, res){//home controller function/action and we 
     // res.cookie("user_name", "ghijk");//initial value of "user_name" key was - "abcde"
     // res.cookie("user_id", 67890);//initial value of "user_id" key was - "12345"
 
-    // finding all the posts
+    Post.find({})//finding all the posts
+    .populate("user")//populating the user of each post
+    .populate({
 
-    Post.find({}).populate("user").exec(function(err, posts){//finding all the posts(all the posts will be returned as we have not passed any search criteria inside {}) and we are populating the user field of each found post to get the user object from its id(pre-populating the user) and we have a callback function inside exec() to handle the situation
+        path: "comments",//populating the comments of each post
+
+        populate: {
+            path: "user"//populating the user of each comment of a post
+        }
+
+    })
+    .exec(function(err, posts){//finding all the posts(all the posts will be returned as we have not passed any search criteria inside {}), populating the user and the comments of each post and the user of each comment of a post
 
         if(err){//if there is an error while finding the posts
 
