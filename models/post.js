@@ -14,7 +14,16 @@ const postSchema=new mongoose.Schema({//defining a post schema
         type: mongoose.Schema.Types.ObjectId,//the user the post is linked to is of the type ObjectId
         ref: "User"//the ObjectId is the id of an object of the model type User
 
-    }
+    },
+
+    comments: [//this comments field is an array of the ids of the comments which have been made on the post and we have included this field because the query of getting all the comments on a post is very frequent and we don't want to traverse all the comments and get the ones with the particular post id which would be very time consuming
+        {
+
+            type: mongoose.Schema.Types.ObjectId,//a particular comment that has been made on a post is of the type ObjectId
+            ref: "Comment"//the ObjectId is the id of an object of the model type Comment
+
+        }
+    ]
 
 }, {
 
