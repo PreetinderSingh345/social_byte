@@ -1,3 +1,4 @@
+const { listIndexes } = require("../models/comment");
 const Comment=require("../models/comment");//requiring the Comment model for which the commentSchema is defined
 const Post=require("../models/post");//requiring the Post model for which the postSchema is defined
 
@@ -36,5 +37,46 @@ module.exports.create=function(req, res){//creating a create action for handling
         });
 
     });  
+
+}
+
+module.exports.destroy=function(req, res){//destroy action for handling the requests at "/comments/destroy" route and we're exporting it so that it can be accessed inside routes
+
+    Comment.findById(req.params.id, function(err, comment){//finding the comment to be deleted using its id and we have a callback function to handle the situation
+
+        if(err){//if there is an error while finding the comment
+
+            console.log(`Error in fetching the comment : ${err}`);//we print a relevant error message and simply return
+            return ;
+
+        }
+
+        // making sure that the user can delete the comment iff it was made by the user
+        
+        if(req.user.id==comment.user){//if the user is authorized to delete the comment
+            
+            Post.findByIdAndUpdate(comment.post, {$pull: {comments: req.params.id}}, function(err){//updating the post on which the comment has been made, by finding the post by its id and pulling from its comments field the comment for which the delete request has been made
+                
+                if(err){//if there is an error while finding/updating the post 
+
+                    console.log(`Error in finding/updating the post : ${err}`);//we print a relevant error error message and simply return
+                    return ;
+
+                }            
+
+            });
+
+            comment.remove();//deleting the comment from the comments collection after the comment has been deleted from the list of comments made on the post the comment belongs to
+
+            return res.redirect("back");//redirecting the user to the current page after the deletion has been done
+
+        }
+        else{//if the user is not authorized to delete the comment
+
+            return res.redirect("back");//redirecting the user to the current page 
+
+        }
+
+    });
 
 }

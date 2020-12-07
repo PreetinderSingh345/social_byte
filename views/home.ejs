@@ -85,6 +85,19 @@
 
                         <%for(j of i.comments){%>
                             <li>
+
+                                <!-- showing the user an option to delete a comment, if the user is signed in and is the one who made that comment -->
+
+                                <%if(locals.user && locals.user.id==j.user.id){%>
+
+                                    <small>
+
+                                        <!-- we send the id of the comment to be deleted using string params -->
+                                        <a href="/comments/destroy/<%=j._id%>">X</a>
+
+                                    </small>
+
+                                <%}%>
                                 
                                 <!-- showing each comment made on a post along with the author -->
 
