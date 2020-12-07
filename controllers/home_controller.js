@@ -1,5 +1,6 @@
 const { populate } = require("../models/post");
 const Post=require("../models/post");//requiring the Post model for which the postSchema has been defined
+const User=require("../models/user");//requiring the User model for which the userSchema has been defined
 
 module.exports.home=function(req, res){//home controller function/action and we are exporting it, so that it can be accesssed in the router section/folder
 
@@ -36,12 +37,24 @@ module.exports.home=function(req, res){//home controller function/action and we 
 
         // if the posts have been found successfully
 
-        return res.render("home", {//rendering the home page as the response
+        User.find({}, function(err, users){//finding all the users and we have a callback function to handle the situation
 
-            title: "Home",//providing the dynamic title and posts object
-            posts: posts
+            if(err){//if there is an error while getting the users
 
-        });
+                console.log(`Error in fetching the users : ${err}`);//we display a relevant error message and simply return
+                return ;
+
+            }
+
+            return res.render("home", {//rendering the home page as the response
+
+                title: "Home",//providing the dynamic title, posts and the users object
+                posts: posts,
+                users: users
+    
+            });    
+
+        }); 
 
     });    
 

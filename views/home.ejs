@@ -45,3 +45,30 @@
     </ul>
 
 </section>
+
+<!-- other users section -->
+
+<section id="other-users">
+
+    <!-- showing the other users if the user is signed in -->
+
+    <%if(locals.user){%>
+
+        <!-- iterating on all the users -->
+
+        <%for(i of users){%>
+            
+            <!-- showing each user except the signed in user -->
+
+            <%if(i.id!=locals.user.id){%>
+
+                <!-- we send the id of the user whose profile page is to be rendered -->
+                <a href="/users/profile/<%=i._id%>"><%=i.name%></a>
+
+            <%}%>
+
+        <%}%>
+
+    <%}%>
+
+</section>

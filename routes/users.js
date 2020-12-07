@@ -7,6 +7,8 @@ const passport=require("passport");//requiring passport
 
 router.get("/profile", passport.checkAuthentication, usersController.profile);//for handling the requests at "/profile" route, we call the profile action of the usersController and we're using checkAuthentication as a middleware for making sure that the profile page is accessible only if the user is signed in 
 
+router.get("/profile/:id", passport.checkAuthentication, usersController.friendsProfile);//for handling the requests at "profile" route(the string param id contains the id of the user whose profile page is to be rendered) and we're using checkAuthentication as a middleware for making sure that the profile page is accessible only when the user is signed in
+
 router.get("/sign-up", usersController.signUp)//for handling the requests at "/sign-up"(using kebab case for routes) route, we call the signUp action of the usersController
 
 router.get("/sign-in", usersController.signIn);//for handling the requests at "/sign-in" route, we call the signIn action of the usersController

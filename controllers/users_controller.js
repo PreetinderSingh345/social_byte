@@ -3,7 +3,10 @@ const User=require("../models/user");//requiring the User model for which the us
 module.exports.profile=function(req, res){//profile controller function/action and we're exporting it, so that it can be accessed in the router section/folder
 
     return res.render("user_profile", {
-        title: "Profile"
+
+        title: "Profile",//providing the dynamic title and the user_profile
+        user_profile: req.user//cannot use locals.user here which is accessible inside views when we are sending a response to the browser, but we can access the user through the request as done here 
+
     });
 
 }
@@ -100,5 +103,28 @@ module.exports.destroySession=function(req, res){//destroySession action for han
     req.logout();//calling the logout function given to the request via passport(just like isAuthenticated), to remove the session cookie 
 
     return res.redirect("/");//redirecting the user to the home page after the session is destroyed i.e. the user is signed out
+
+}
+
+module.exports.friendsProfile=function(req, res){//friendsProfile action for handling the profile requests of a specific user and we're exporting it so that it can be accessed inside routes
+
+    User.findById(req.params.id, function(err, user){//finding the user with the help of its id(obtained from string params) and we have a callback function to handle the sitution
+
+        if(err){//if there is an error while getting the user
+
+            console.log(`Error in fetching the users : ${err}`);//we print a relevant error message and simply return
+            return ;
+
+        }
+
+        return res.render("user_profile", {//rendering the user_profile page of the particular user as the reponse
+
+            title: "Profile",//providing the dynamic title and the user object
+
+            user_profile: user//we have not accessed the user inside user_profile page as user, so that the it does not interfere with the locals.user object
+
+        })
+
+    });
 
 }
