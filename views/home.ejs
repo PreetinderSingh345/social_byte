@@ -39,7 +39,20 @@
         <%for(i of posts){%>
             <li>
 
-                <!-- showing the content and the author of each post -->
+                <!-- showing the user an option to delete a post if the user is signed in and is the one who made it(.id gives the ObjectId in the string format and this format is preferred for ObjectId comparison) -->
+
+                <%if(locals.user && locals.user.id==i.user.id){%>                                        
+
+                    <small>
+
+                        <!-- we send the id of the post to be deleted using string params -->
+                        <a href="/posts/destroy/<%=i._id%>">X</a>
+
+                    </small>
+
+                <%}%>                
+
+                <!-- showing the content and the author of each post -->                
 
                 <span><%=i.content%></span>
                 <span> : </span>
