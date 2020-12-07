@@ -1,0 +1,60 @@
+<!-- to show each post and its related options -->
+
+<li>
+
+    <!-- showing the user an option to delete a post if the user is signed in and is the one who made it(.id gives the ObjectId in the string format and this format is preferred for ObjectId comparison) -->
+
+    <%if(locals.user && locals.user.id==i.user.id){%>                                        
+
+        <small>
+
+            <!-- we send the id of the post to be deleted using string params -->
+            <a href="/posts/destroy/<%=i._id%>">X</a>
+
+        </small>
+
+    <%}%>                
+
+    <!-- showing the content and the author of each post -->                
+
+    <span><%=i.content%></span>
+    <span> : </span>
+    <span><%=i.user.name%></span>    
+    
+    <!-- post comments container for each post -->
+
+    <div class="post-comments">
+
+        <!-- showing the user a form to add comments on each post when the user is signed in -->
+
+        <%if(locals.user){%>
+
+            <form action="/comments/create" method="POST">
+
+                <input type="text" name="content" placeholder="Comment here..." required>
+
+                <!-- hidden input for sending the id of the post on which the comment has been made -->
+
+                <input type="hidden" name="post" value="<%=i._id%>">                           
+                <input type="submit" value="Comment">
+
+            </form>
+
+        <%}%>
+
+        <!-- post comments list container to show all the comments made on a post and the comments should be made visible even if the user is not signed in -->
+
+        <ul class="post-comments-list" id="post-comments-<%=i._id%>">
+
+            <%for(j of i.comments){%>
+            
+                <!-- including the comment -->
+                <%-include("_comment");%>
+
+            <%}%>
+
+        </ul>
+
+    </div>
+
+</li>
