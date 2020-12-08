@@ -28,4 +28,6 @@ router.post("/create-session", passport.authenticate(//authenticating the reques
 
 router.get("/sign-out", usersController.destroySession);//for handling the requests at "/sign-out" route, we call the destroySession action of the usersController 
 
+router.post("/update/:id", passport.checkAuthentication, usersController.update);//for handling the requests at "/update" route(id is passed as a string param containing the id of the user whose profile is to be updated), we call the update action of the usersController and we're using checkAuthentication as a middleware for making sure that the user can update only when it is signed in
+
 module.exports=router;//exporting the router, so that it can be accessed by the server to handle the incoming requests

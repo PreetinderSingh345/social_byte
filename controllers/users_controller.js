@@ -128,3 +128,51 @@ module.exports.friendsProfile=function(req, res){//friendsProfile action for han
     });
 
 }
+
+module.exports.update=function(req, res){//update action for handling the update requests and we're exporting it,  so that it can be accessed inside routes
+
+    if(req.params.id==req.user.id){//making sure that the profile to be updated is of the user who is signed in
+
+        // making sure that the id of the user is not updated to an already existing value in the database as email is unique for each user
+
+        User.findOne({email: req.body.email}, function(err, user){//finding a user with the email as sent by the signed in user thorugh the update form
+
+            if(err){//if there is an error while getting the user
+
+                console.log(`Error in finding user : ${err}`);//we print a relevant error message and simply return 
+                return ;
+
+            }
+
+            if(user && user.id!=req.user.id){//if a user with the same email has been found and is not the signed in user(the signed in user can choose to change only its name)
+
+                return res.redirect("back");//we redirect the user to the current page as we cannot have multiple users with the same email
+
+            }
+            else{//if there is no existing user with the same email
+
+                User.findByIdAndUpdate(req.params.id, req.body, function(err, user){//finding the user by its id(obtained from string params), updating it and we have a callback function to handle the situation
+
+                    if(err){//if there is an error while finding or updating the user
+        
+                        console.log(`Error while finding/updating the user : ${err}`);//we print a relevant error message and simply return
+                        return ;
+        
+                    }
+        
+                    return res.redirect("back");//redirecting the user to the current page after the profile has been updated
+        
+                });
+
+            }
+
+        });        
+
+    }
+    else{//if the profile to be updated is not of the user who is signed in
+
+        return res.status(401).send("Unauthorized");//we return a status of 401(unauthorized) and we send an Unauthorized message 
+
+    }
+
+}
