@@ -9,6 +9,20 @@
             <%=title%>
         </title>
 
+        <!-- showing style and js link for flash message if success flash message is defined and is non empty -->
+
+        <%if(flash.success && flash.success.length!=0){%>
+
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+            <!-- minified css CDN for noty -->
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+            <!-- minified js CDN for noty -->
+
+        <%}%>
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+
         <link rel="stylesheet" type="text/css" href="/css/layout.css">
         <!-- above is the link to the external stylesheet relative to the assets folder(path indicated by static middleware) -->
 
@@ -17,7 +31,6 @@
 
         <link rel="stylesheet" type="text/css" href="/css/footer.css">
         <!-- above is the link to the footer styling external stylesheet -->
-
 
         <%-style%>
         <!-- above is the style link of the specific file i.e. being rendered and it is provided below the above link to overwrite the basic styling -->
@@ -28,13 +41,15 @@
 
         <!-- including the flash message to be shown, if the success flash is defined/exists and is non empty -->
 
-        <%if(flash.success && flash.success.length!=0){%>
+        <!-- *** below part to show a flash message is commented as we are now using noty to show the flash message *** -->
+
+        <!-- <%if(flash.success && flash.success.length!=0){%>
 
             <h5>
                 <%=flash.success%>
             </h5>
 
-        <%}%>
+        <%}%> -->
 
         <!-- including the common header content -->
 
@@ -49,7 +64,29 @@
         <%-include("_footer")%>
 
         <%-script%>
-        <!-- above is the link to the external js file of the specific file which is being rendered -->
+        <!-- above is the link to the external js file of the specific file which is being rendered -->        
+
+        <!-- including the flash message to be shown, if the success flash is defined and is non empty -->
+
+        <%if(flash.success && flash.success.length!=0){%>
+
+            <!-- adding the js code to include the noty message -->
+
+            <script>            
+
+                    new Noty({//making a new Noty object for the success flash message and then showing it
+
+                        theme: "semanticui",
+                        text: "<%=flash.success%>",
+                        type: "success",
+                        layout: "topRight",
+                        timeout: 1000
+
+                    }).show();
+
+            </script>
+
+        <%}%>
         
     </body>
 </html>
