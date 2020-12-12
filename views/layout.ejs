@@ -26,6 +26,16 @@
 
     <body>
 
+        <!-- including the flash message to be shown, if the success flash is defined/exists and is non empty -->
+
+        <%if(flash.success && flash.success.length!=0){%>
+
+            <h5>
+                <%=flash.success%>
+            </h5>
+
+        <%}%>
+
         <!-- including the common header content -->
 
         <%-include("_header")%>

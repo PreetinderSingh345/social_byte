@@ -94,6 +94,8 @@ module.exports.createSession=function(req, res){//createSession action for handl
 
     // return res.end("<h1>Creating a session</h1>");
 
+    req.flash("success", "Logged in successfully");//setting up the flash message to be shown, is of type success and displays the above message when the user has logged in successfully
+
     return res.redirect("/");//redirecting the user to the home page when a session is successfully created after authentication through passport
 
 }
@@ -102,6 +104,8 @@ module.exports.destroySession=function(req, res){//destroySession action for han
 
     req.logout();//calling the logout function given to the request via passport(just like isAuthenticated), to remove the session cookie 
 
+    req.flash("success", "Logged out successfully");//setting up the flash message to be shown, is of type success and displays the above message when the user has logged out successfully
+    
     return res.redirect("/");//redirecting the user to the home page after the session is destroyed i.e. the user is signed out
 
 }

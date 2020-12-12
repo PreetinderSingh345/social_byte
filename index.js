@@ -9,6 +9,8 @@ const passport=require("passport");//requiring passport
 const passportLocal=require("./config/passport-local-strategy");//requiring the passport-local-strategy file we've set up inside config 
 const mongoStore=require("connect-mongo")(session);//requiring connect mongo and we are required to pass the session(required above) whose information we are going to store using mongoStore
 const sassMiddleware=require("node-sass-middleware");//requiring the node sass middleware
+const flash=require("connect-flash");//requiring the connect flash middleware
+const customMware=require("./config/middleware");//requiring the custom middleware
 
 app.use(sassMiddleware({//using sass middleware to setup properties for using sass
 
@@ -61,6 +63,10 @@ app.use(passport.initialize());//using middleware to tell the server to initiali
 app.use(passport.session());//using middleware to tell the server to create a passport session
 
 app.use(passport.setAuthenticatedUser);//using middleware to obtain the user from the session cookie
+
+app.use(flash());//using middleware to set up flash messages and it is done after the session cookie has been created as the flash messages are contained inside the session cookie(this will make sure that the message is available to the next page i.e. to be rendered)
+
+app.use(customMware.setFlash);//using setFlash middleware defined inside middleware file inside config folder to set the flash message
 
 app.use(express.urlencoded());//using middleware to decode the incoming request with the help of a parser function, so that we can access req.body object
 
