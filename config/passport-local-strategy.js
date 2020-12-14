@@ -7,16 +7,17 @@ const User=require("../models/user");//requiring the User model for which the us
 passport.use(new LocalStrategy({//telling passport to use the local strategy we've required above
 
     usernameField: "email",//defining the usernameField as "email"(unique for each and every user)
+    passReqToCallback: true//passing the request object to the callback function, so that we can define the flash messages
 
 }, 
 
-    function(email, password, done){//defining the callback function inside the local strategy which takes the email, passsword and done(function used for reporting to passport and can have any other name too) as the parameters
+    function(req, email, password, done){//defining the callback function inside the local strategy which takes the email, passsword and done(function used for reporting to passport and can have any other name too) as the parameters
 
         User.findOne({email: email}, function(err, user){//finding a user with the above email(as in the parameter) and we have a callback function to handle the situation
 
             if(err){//if there is an error while finding a user with the above email(as in the parameter)
-
-                console.log(`Error in finding user : ${err}`);//we print a relevant error message 
+                
+                req.flash("error", "Cannot authenticate user");//adding a relevant flash message
 
                 return done(err);//return by telling the error(indicated through err) to passport through the done function
 
@@ -24,7 +25,7 @@ passport.use(new LocalStrategy({//telling passport to use the local strategy we'
 
             if(!user || user.password!=password){//if there is no user with the above email(as in the parameter) or the password(as in the parameter) does with match with the user's password
 
-                console.log(`Invalid username/password`);//we print a relevant error message 
+                req.flash("error", "Invalid username/password");//adding a relevant flash message
 
                 return done(null, false);//return by telling that there is no error while finding the user(indicated through null) and that the authentication is not successful(indicated through false) to passport through the done function
 
@@ -79,6 +80,8 @@ passport.checkAuthentication=function(req, res, next){//this checkAuthentication
         return next();
 
     }
+
+    req.flash("error", "You're not signed in");//adding a relevant flash message
 
     // if the user is not authenticated/signed-in, then we redirect the user to the sign in page
     return res.redirect("/users/sign-in");

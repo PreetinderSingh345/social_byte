@@ -20,13 +20,16 @@ module.exports.create=async function(req, res){//creating a create action for ha
 
         post.save();//telling the database to save the updated post which is currently stored in the ram
 
+        req.flash("success", "Comment puslished");//if the request to create a comment is successful, then we add a relevant flash message
+
         return res.redirect("back");//we redirect the user to the current page i.e. reload it, if the comment has been created successfully
 
     }
     catch(err){//if there is an error in the code inside try
 
-        console.log("Error : "+err);//we print a relevant error message and simply return
-        return ;
+        req.flash("error", err);//if the request to create a comment gives an error, then we add a relevant flash message
+        
+        return res.redirect("back");//redirecting the user to the current page
 
     }    
 
@@ -46,10 +49,14 @@ module.exports.destroy=async function(req, res){//destroy action for handling th
 
             comment.remove();//deleting the comment from the comments collection after the comment has been deleted from the list of comments made on the post the comment belongs to
 
+            req.flash("success", "Comment deleted");//if the request to delete a comment is successful, then we add a relevant flash message
+
             return res.redirect("back");//redirecting the user to the current page after the deletion has been done
 
         }
         else{//if the user is not authorized to delete the comment
+
+            req.flash("error", "You cannot delete this comment");//if the user is not authorized to delete the comment, then we add a relevant flash message
 
             return res.redirect("back");//redirecting the user to the current page 
 
@@ -58,8 +65,9 @@ module.exports.destroy=async function(req, res){//destroy action for handling th
     }
     catch(err){//if there is an error in the code inside try
 
-        console.log("Error : "+err);//we print a relevant error message and simply return
-        return ;
+        req.flash("error", err);//if the request to delete a comment gives an error, then we add a relevant flash message
+        
+        return res.redirect("back");//redirecting the user to the current page
 
     }    
 

@@ -12,13 +12,16 @@ module.exports.create=async function(req, res){//create action for handling the 
 
         });        
 
+        req.flash("success", "Post published");//if the request to create a post is successful, then we add a relevant flash message
+
         return res.redirect("back");//we redirect the user to the current page i.e. reload it after the post has been created successfully
 
     }
     catch(err){//if there is any error in the code within try
 
-        console.log("Error : "+err);//we print a relevant error message and simply return
-        return ;
+        req.flash("error", err);//if the request to create a post gives an error, then we add a relevant flash message
+
+        return res.redirect("back");//redirecting the user to the current page
 
     }
 
@@ -38,10 +41,14 @@ module.exports.destory=async function(req, res){//destroy action for handling th
 
             post.remove();//removing the post after deleting all the comments associated with it
 
+            req.flash("success", "Post and associated comments deleted");//if the request to delete a post is successful, then we add a relevant flash message
+
             return res.redirect("back");//redirecting the user to the current page i.e. reloading it in case the post and its related comments have been deleted successfully            
 
         }
         else{//if the user is not authorized to delete the post
+
+            req.flash("error", "You cannot delete this post");//if the user is not authorized to delete the post, then we add a relevant flash message
 
             return res.redirect("back");//redirecting the user to the current page i.e. reloading it 
             
@@ -50,8 +57,9 @@ module.exports.destory=async function(req, res){//destroy action for handling th
     }
     catch(err){//if there is any error in the code within try
 
-        console.log("Error : "+err);//we print a relevant error message and simply return
-        return ;
+        req.flash("error", err);//if the request to delete a post gives an error, then we add a relevant flash message
+
+        return res.redirect("back");//redirecting the user to the current page
 
     }
 

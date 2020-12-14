@@ -9,9 +9,9 @@
             <%=title%>
         </title>
 
-        <!-- showing style and js link for flash message if success flash message is defined and is non empty -->
+        <!-- showing style and js link for flash message if success or error flash message is defined and is non empty -->
 
-        <%if(flash.success && flash.success.length!=0){%>
+        <%if((flash.success && flash.success.length!=0) || (flash.error && flash.error.length!=0)){%>
 
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
             <!-- minified css CDN for noty -->
@@ -80,9 +80,31 @@
                         text: "<%=flash.success%>",
                         type: "success",
                         layout: "topRight",
-                        timeout: 1000
+                        timeout: 1500
 
                     }).show();
+
+            </script>
+
+        <%}%>
+
+        <!-- including the flash message to be shown, if the error flash is defined and is non empty -->
+
+        <%if(flash.error && flash.error.length!=0){%>
+
+            <!-- adding the js code to include the noty message -->
+
+            <script>
+
+                new Noty({//making a new Noty obejct for the error flash message and then showing it
+
+                    theme: "semanticui",
+                    text: "<%=flash.error%>",
+                    type: "error",
+                    layout: "topRight",
+                    timeout: 1500
+
+                }).show();
 
             </script>
 

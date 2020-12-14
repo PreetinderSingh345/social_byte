@@ -14,7 +14,10 @@ module.exports.profile=function(req, res){//profile controller function/action a
 module.exports.signUp=function(req, res){//signUp action for handling the sign up requests and we're exporting it, so that it can be accessed inside routes
 
     if(req.isAuthenticated()){//redirecting the user to the profile page in case the user is authenticated/signed in 
-        return res.redirect("/users/profile");
+        req.flash("success", "You're signed in");//adding a relevant flash message
+
+        return res.redirect("/users/profile");//redirecting the user to the profile page
+
     }
     else{//rendering the sign up page in case the user is not signed in 
 
@@ -29,7 +32,10 @@ module.exports.signUp=function(req, res){//signUp action for handling the sign u
 module.exports.signIn=function(req, res){//signIn action for handling the sign in requests and we're exporting it, so that it can be accessed inside routes
 
     if(req.isAuthenticated()){//redirecting the user to the profile page in case the user is authenticates/signed in 
-        return res.redirect("/users/profile");
+        req.flash("success", "You're signed in");//adding a relevant flash message
+
+        return res.redirect("/users/profile");//redirecting the user to the profile page
+        
     }
     else{//rendering the sign in page in the case the user is not signed in 
     
@@ -47,7 +53,10 @@ module.exports.create=function(req, res){//create action for handling the create
 
     if(req.body.password!=req.body.confirm_password){//if the password and confirm password entered by the user are not same, then we redirect back to/reload the sign up page where the user has to enter the details again
 
-        return res.redirect("back");
+        req.flash("error", "Passwords do not match");//adding a relevant flash message
+
+        return res.redirect("back");//redirecting the user to the current page
+
     }
 
     // if the password and confirm password entered by the user are same
@@ -56,9 +65,9 @@ module.exports.create=function(req, res){//create action for handling the create
 
         if(err){//if there is an error while finding an existing user with the same email
 
-            console.log(`Error in finding user while sign up : ${err}`);//we print a relevant error message and simply return in this case
+            req.flash("error", "Cannot create user");//adding a relevant flash message
 
-            return ;
+            return res.redirect("back");//redirecting the user to the current page
 
         }
 
@@ -66,7 +75,9 @@ module.exports.create=function(req, res){//create action for handling the create
 
         if(user){//if a user with the same email was found then we redirect back to the sign up page as we cannot create another user with the same email as email id is meant to be unique for each user
 
-            return res.redirect("back");
+            req.flash("error", "Cannot create user");//redirecting the user to the current page
+
+            return res.redirect("back");//redirecting the user to the current page
 
         }
         else{//if no user with the same email was found
@@ -75,10 +86,13 @@ module.exports.create=function(req, res){//create action for handling the create
 
                 if(err){//if there is an error while creating a new user
 
-                    console.log(`Error in creating user while sign up : ${err}`);//we print a relevant error message and simply return in this case
-                    return ;
+                    req.flash("error", "Cannot create user");//adding a relevant flash message
+
+                    return res.redirect("back");//redirecting the user to the current page
 
                 }
+
+                req.flash("success", "User created successfully");
 
                 return res.redirect("/users/sign-in");//if a new user has successfully been created, then we redirect the user to the sign in page
 
@@ -91,8 +105,6 @@ module.exports.create=function(req, res){//create action for handling the create
 }
 
 module.exports.createSession=function(req, res){//createSession action for handling the create session requests and we're exporting it, so that it can be accessed inside routes
-
-    // return res.end("<h1>Creating a session</h1>");
 
     req.flash("success", "Logged in successfully");//setting up the flash message to be shown, is of type success and displays the above message when the user has logged in successfully
 
@@ -116,8 +128,9 @@ module.exports.friendsProfile=function(req, res){//friendsProfile action for han
 
         if(err){//if there is an error while getting the user
 
-            console.log(`Error in fetching the users : ${err}`);//we print a relevant error message and simply return
-            return ;
+            req.flash("error", "Cannot get user");//adding a relevant flash message
+
+            return res.redirect("back");//redirecting the user to the current page
 
         }
 
@@ -143,12 +156,15 @@ module.exports.update=function(req, res){//update action for handling the update
 
             if(err){//if there is an error while getting the user
 
-                console.log(`Error in finding user : ${err}`);//we print a relevant error message and simply return 
-                return ;
+                req.flash("error", "Cannot update user");//adding a relevant flash message
+                
+                return res.redirect("back");//redirecting the user to the current page
 
             }
 
             if(user && user.id!=req.user.id){//if a user with the same email has been found and is not the signed in user(the signed in user can choose to change only its name)
+
+                req.flash("error", "Cannot update user");//adding a relevant flash message
 
                 return res.redirect("back");//we redirect the user to the current page as we cannot have multiple users with the same email
 
@@ -159,10 +175,13 @@ module.exports.update=function(req, res){//update action for handling the update
 
                     if(err){//if there is an error while finding or updating the user
         
-                        console.log(`Error while finding/updating the user : ${err}`);//we print a relevant error message and simply return
-                        return ;
+                        req.flash("error", "Cannot update user");//adding a relevant flash message
+                
+                        return res.redirect("back");//redirecting the user to the current page
         
                     }
+
+                    req.flash("success", "User updated successfully");//adding a relevant flash message
         
                     return res.redirect("back");//redirecting the user to the current page after the profile has been updated
         
@@ -175,7 +194,9 @@ module.exports.update=function(req, res){//update action for handling the update
     }
     else{//if the profile to be updated is not of the user who is signed in
 
-        return res.status(401).send("Unauthorized");//we return a status of 401(unauthorized) and we send an Unauthorized message 
+        req.flash("error", "You cannot update the user");//adding a relevant flash message
+
+        return res.redirect("back");//redirecting the user to the current page
 
     }
 
