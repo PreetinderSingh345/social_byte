@@ -1,6 +1,6 @@
 <!-- to show each post and its related options -->
 
-<li>
+<li id="post-<%=i._id%>">
 
     <!-- showing the user an option to delete a post if the user is signed in and is the one who made it(.id gives the ObjectId in the string format and this format is preferred for ObjectId comparison) -->
 
@@ -9,7 +9,7 @@
         <small>
 
             <!-- we send the id of the post to be deleted using string params -->
-            <a href="/posts/destroy/<%=i._id%>">X</a>
+            <a class="delete-post-button" href="/posts/destroy/<%=i._id%>">X</a>
 
         </small>
 
@@ -46,12 +46,7 @@
 
         <ul class="post-comments-list" id="post-comments-<%=i._id%>">
 
-            <%for(j of i.comments){%>
-            
-                <!-- including the comment -->
-                <%-include("_comment");%>
-
-            <%}%>
+            <!-- the comments will be shown when the comments are appended -->                   
 
         </ul>
 

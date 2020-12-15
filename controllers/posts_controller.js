@@ -10,11 +10,28 @@ module.exports.create=async function(req, res){//create action for handling the 
             content: req.body.content,//setting the content of the post to that submitted by the user
             user: req.user._id//setting the user who has posted the post to its unique id
 
-        });        
-
+        });  
+        
         req.flash("success", "Post published");//if the request to create a post is successful, then we add a relevant flash message
 
-        return res.redirect("back");//we redirect the user to the current page i.e. reload it after the post has been created successfully
+        if(req.xhr){//checking if the request is an xhr request              
+
+            let foundPost=await Post.findById(post._id).populate("user");//finding the post created above with its id and then populating its user field and then we provide the json reponse
+
+            return res.status(200).json({//returning the json object with a success status, containing the new post inside the post field(with user populated) inside data field and a message as the response
+
+                data:{
+                    post: foundPost
+                },
+
+                message: "Post created"
+
+            });     
+
+        }        
+        else{
+            return res.redirect("back");
+        }       
 
     }
     catch(err){//if there is any error in the code within try

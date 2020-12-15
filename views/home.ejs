@@ -34,14 +34,12 @@
 
     <ul id="posts-list">
 
-        <!-- iterating on all the posts -->
-
         <%for(i of posts){%>
-            
-            <!-- including the post -->
+
             <%-include("_post");%>
 
         <%}%>
+        
     </ul>
 
 </section>
@@ -72,3 +70,6 @@
     <%}%>
 
 </section>
+
+<script src="/js/home_posts.js"></script>
+<!-- above is the link to the external js file specific to the home page -->

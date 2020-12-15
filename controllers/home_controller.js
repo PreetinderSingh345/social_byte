@@ -8,6 +8,7 @@ module.exports.home=async function(req, res){//home controller function/action, 
 
         let posts=await Post.find({})//finding all the posts and we are awaiting here(indicated using await) till this statement is executed(success response of this statement will be forwarded to the next await statement)
 
+        .sort("-createdAt")//sorting the posts in reverse chronological order, so that prepending looks natural
         .populate("user")//populating the user of each post
         .populate({
 
