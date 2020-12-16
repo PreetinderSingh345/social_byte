@@ -1,3 +1,30 @@
+function deletePost(event, href){//function to delete a post taking the event(delete button click) and the href(url where the delete request has to be sent) as the arguments
+
+    event.preventDefault();////preventing the default action taking place when the delete button is clicked, as we want to send the request via ajax
+
+    $.ajax({//making the request
+
+        type: "get",//we're making a get request at the above href
+        url: href,
+
+        success: function (data) {//handling the case when we recieve the response
+
+            document.getElementById(`post-${data.data.postId}`).remove();//removing the post whose delete button was clicked and then we return
+            return ;
+            
+        },
+
+        error: function(err){//handling the case when there is an error while receiving the reponse
+
+            console.log("Error while fetching data : "+err);//we print a relevant error message and return
+            return ;
+
+        }
+
+    });
+
+}
+
 let newPost=function(i){//new post function which takes the new post and appends it to the posts list 
 
     //returning the content to be appended to the posts list
@@ -72,7 +99,14 @@ postsForm.submit(function(event){//handling the event when the posts form is sub
         success: function (data) {//handling the case when we recieve the response
             
             postsList.prepend(newPost(data.data.post));//appending at the top(prepend), the new post to the posts list and then we simply return 
-            return ;
+
+            let deleteBtn=document.querySelector(`#post-${data.data.post._id} .delete-post-button`);//getting the delete button of the post being appended above
+
+            let href=deleteBtn.getAttribute("href");//getting the url where the delete request of the post linked with the above delete button is sent
+
+            deleteBtn.addEventListener("click", function(event){//handling the event when the delete button is clicked
+                deletePost(event, href);//calling delete post, providing it the event and the href
+            });
 
         },
 
@@ -85,4 +119,18 @@ postsForm.submit(function(event){//handling the event when the posts form is sub
 
     });
 
-});    
+}); 
+
+let deleteBtns=document.getElementsByClassName("delete-post-button");//getting all the elements with the class delete post button applied to them
+
+for(let i=0;i<deleteBtns.length;i++){//iterating on the above delete buttons
+
+    let deleteBtn=deleteBtns[i];//getting a particular delete button
+
+    let href=deleteBtn.getAttribute("href");//getting the url where the delete request of the post linked with the above delete button is sent
+
+    deleteBtn.addEventListener("click", function(event){//handling the event when the delete button is clicked
+        deletePost(event, href);//calling delete post, providing it the event and the href
+    });
+
+}

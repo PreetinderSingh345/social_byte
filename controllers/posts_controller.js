@@ -60,7 +60,24 @@ module.exports.destory=async function(req, res){//destroy action for handling th
 
             req.flash("success", "Post and associated comments deleted");//if the request to delete a post is successful, then we add a relevant flash message
 
-            return res.redirect("back");//redirecting the user to the current page i.e. reloading it in case the post and its related comments have been deleted successfully            
+            if(req.xhr){//checking if the request is an xhr request                              
+    
+                return res.status(200).json({//returning the json object with a success status, containing the deleted post's id inside postId field, inside data field and a message as the response
+    
+                    data:{
+                        postId: req.params.id
+                    },
+    
+                    message: "Post created"
+    
+                });     
+    
+            }       
+            else{
+
+                return res.redirect("back");//redirecting the user to the current page i.e. reloading it in case the post and its related comments have been deleted successfully            
+
+            }            
 
         }
         else{//if the user is not authorized to delete the post
