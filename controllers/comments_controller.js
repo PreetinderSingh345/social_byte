@@ -23,7 +23,7 @@ module.exports.create=async function(req, res){//creating a create action for ha
         return res.redirect("back");//we redirect the user to the current page i.e. reload it, if the comment has been created successfully
 
     }
-    catch{//if there is an error in the code inside try
+    catch(err){//if there is an error in the code inside try
 
         console.log("Error : "+err);//we print a relevant error message and simply return
         return ;
@@ -56,7 +56,7 @@ module.exports.destroy=async function(req, res){//destroy action for handling th
         }
 
     }
-    catch{//if there is an error in the code inside try
+    catch(err){//if there is an error in the code inside try
 
         console.log("Error : "+err);//we print a relevant error message and simply return
         return ;
