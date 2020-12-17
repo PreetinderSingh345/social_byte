@@ -14,6 +14,13 @@ module.exports.home=async function(req, res){//home controller function/action, 
 
             path: "comments",//populating the comments of each post
 
+            options: {//sorting the comments in reverse chronological order, so that prepending of the comments looks natural
+                
+                sort: {
+                    "createdAt": -1
+                }
+            },
+
             populate: {
                 path: "user"//populating the user of each comment of a post
             }

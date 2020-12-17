@@ -14,15 +14,39 @@ module.exports.create=async function(req, res){//creating a create action for ha
             post: req.body.post,//setting the post for which the comment has been made
             user: req.user._id//setting the user who has made the comment
 
-        });               
+        });        
 
-        post.comments.push(comment._id);//adding the comment's id to the comments field of the post for which this comment has been made
+        post.comments.push(comment._id);//adding the comment's id to the comments field of the post for which this comment has been made        
 
         post.save();//telling the database to save the updated post which is currently stored in the ram
 
         req.flash("success", "Comment puslished");//if the request to create a comment is successful, then we add a relevant flash message
 
-        return res.redirect("back");//we redirect the user to the current page i.e. reload it, if the comment has been created successfully
+        if(req.xhr){//checking if the request is an xhr request
+
+            let foundComment=await Comment.findById(comment._id).populate([{//finding the created comment with the help of its id and populating its user and post fields
+
+                path: "user"
+            }, {
+                path: "post"
+            }]);                       
+
+            return res.status(200).json({//returing a json object with successful stauts, containing the above found comment inside the comment field, inside data field and a message as the response
+
+                data: {
+                    comment: foundComment
+                },
+
+                message: "Comment created"
+
+            });
+
+        }
+        else{
+
+            return res.redirect("back");//we redirect the user to the current page i.e. reload it, if the comment has been created successfully
+
+        }
 
     }
     catch(err){//if there is an error in the code inside try
@@ -51,7 +75,24 @@ module.exports.destroy=async function(req, res){//destroy action for handling th
 
             req.flash("success", "Comment deleted");//if the request to delete a comment is successful, then we add a relevant flash message
 
-            return res.redirect("back");//redirecting the user to the current page after the deletion has been done
+            if(req.xhr){//checking if the request is an xhr request
+
+                return res.status(200).json({//returing a json object with successful stauts, containing the comment id inside the commentId field, inside data field and a message as the response
+
+                    data: {
+                        commentId: req.params.id
+                    },  
+
+                    message: "Comment deleted"
+
+                });
+
+            }
+            else{
+
+                return res.redirect("back");//redirecting the user to the current page after the deletion has been done
+
+            }            
 
         }
         else{//if the user is not authorized to delete the comment

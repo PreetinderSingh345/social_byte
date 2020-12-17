@@ -1,4 +1,4 @@
-<li>
+<li id="comment-<%=j._id%>">
 
     <!-- showing the user an option to delete a comment, if the user is signed in and is the one who made that comment -->
 
@@ -7,7 +7,7 @@
         <small>
 
             <!-- we send the id of the comment to be deleted using string params -->
-            <a href="/comments/destroy/<%=j._id%>">X</a>
+            <a href="/comments/destroy/<%=j._id%>" class="delete-comment-button">X</a>
 
         </small>
 

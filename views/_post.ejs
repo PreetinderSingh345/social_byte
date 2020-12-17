@@ -29,7 +29,7 @@
 
         <%if(locals.user){%>
 
-            <form action="/comments/create" method="POST">
+            <form action="/comments/create" method="POST" class="comment-forms">
 
                 <input type="text" name="content" placeholder="Comment here..." required>
 
@@ -46,7 +46,12 @@
 
         <ul class="post-comments-list" id="post-comments-<%=i._id%>">
 
-            <!-- the comments will be shown when the comments are appended -->                   
+            <%for(j of i.comments){%>
+
+                <!-- including the comment -->
+                <%-include("_comment");%>
+
+            <%}%>
 
         </ul>
 
