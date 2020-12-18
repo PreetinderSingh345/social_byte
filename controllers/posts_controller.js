@@ -16,27 +16,42 @@ module.exports.create=async function(req, res){//create action for handling the 
 
             let foundPost=await Post.findById(post._id).populate("user");//finding the post created above with its id and then populating its user field and then we provide the json reponse
 
-            return res.status(200).json({//returning the json object with a success status, containing the new post inside the post field(with user populated) inside data field and a message as the response
+            return res.status(200).json({//returning the json object with a success status, containing the new post inside the post field(with user populated) inside data field, the status and a message as the response
 
                 data:{
                     post: foundPost
                 },
-
-                message: "Post created"
+                
+                status: 200,
+                
+                message: "Post published"
 
             });     
 
         }        
         else{
-            return res.redirect("back");
+            return res.redirect("back");//redirecting the user to the current page
         }       
 
     }
     catch(err){//if there is any error in the code within try
 
-        req.flash("error", err);//if the request to create a post gives an error, then we add a relevant flash message
+        if(req.xhr){//checking if the request is an xhr request     
 
-        return res.redirect("back");//redirecting the user to the current page
+            return res.status(500).json({//returning a json object with an internal server status, containing the status and the message as the response
+
+                status: 500,
+                message: "Couldn't publish post"
+
+            });
+
+        }
+        else{
+
+            console.log("Error : "+err);//we print an error message
+            return res.redirect("back");//redirecting the user to the current page
+
+        }        
 
     }
 
@@ -58,13 +73,15 @@ module.exports.destory=async function(req, res){//destroy action for handling th
 
             if(req.xhr){//checking if the request is an xhr request                              
     
-                return res.status(200).json({//returning the json object with a success status, containing the deleted post's id inside postId field, inside data field and a message as the response
+                return res.status(200).json({//returning the json object with a success status, containing the deleted post's id inside postId field, inside data field, the status and a message as the response
     
                     data:{
                         postId: req.params.id
                     },
+
+                    status: 200,
     
-                    message: "Post deleted"
+                    message: "Post and associated comments deleted"
     
                 });     
     
@@ -78,18 +95,41 @@ module.exports.destory=async function(req, res){//destroy action for handling th
         }
         else{//if the user is not authorized to delete the post
 
-            req.flash("error", "You cannot delete this post");//if the user is not authorized to delete the post, then we add a relevant flash message
+            if(req.xhr){//checking if the request is an xhr request     
 
-            return res.redirect("back");//redirecting the user to the current page i.e. reloading it 
+                return res.status(401).json({//returning a json object with an unauthorized status, containing the status and the message as the response
+
+                    status: 401,
+                    message: "You cannot delete this post"
+
+                });
+
+            }
+            else{
+                return res.redirect("back");//redirecting the user to the current page i.e. reloading it 
+            }            
             
         }
 
     }
     catch(err){//if there is any error in the code within try
 
-        req.flash("error", err);//if the request to delete a post gives an error, then we add a relevant flash message
+        if(req.xhr){//checking if the request is an xhr request     
 
-        return res.redirect("back");//redirecting the user to the current page
+            return res.status(500).json({//returning a json object with an internal server status, containing the status and the message as the response
+
+                status: 500,
+                message: "Couldn't delete post"
+
+            })
+
+        }
+        else{
+
+            console.log("Error : "+err);//we print an error message
+            return res.redirect("back");//redirecting the user to the current page
+            
+        }        
 
     }
 

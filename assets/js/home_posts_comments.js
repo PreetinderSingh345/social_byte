@@ -12,6 +12,30 @@ function showNoty(text, type){//function which makes a new noty notification for
 
 }
 
+function checkStatus(data){//function which checks the status of the data and shows a noty notification accordingly    
+
+    if(data.status==500){
+
+        showNoty(data.message, "error");
+        return ;
+
+    }
+
+    if(data.status==401){
+
+        showNoty(data.message, "warning");
+        return ;
+
+    }
+
+    if(data.status==200){
+        
+        showNoty(data.message, "success");
+        return ;
+
+    }
+
+}
 
 function deleteComment(event, href){//function to delete a comment, taking the event(delete button click) and the href(url where the delete comment request has to be sent) as the arguments
 
@@ -23,10 +47,10 @@ function deleteComment(event, href){//function to delete a comment, taking the e
         url: href,
 
         success: function (data) {//handling the case when we recieve the response
-                   
-            document.querySelector(`#comment-${data.data.commentId}`).remove();//we remove the comment element and return
+            
+            checkStatus(data);//checking the status and showing notification accordingly
 
-            showNoty("Comment deleted", "success");            
+            document.querySelector(`#comment-${data.data.commentId}`).remove();//we remove the comment element and return       
             
             return ;
 
@@ -34,7 +58,9 @@ function deleteComment(event, href){//function to delete a comment, taking the e
 
         error: function(err){//handling the case when there is an error while receiving the reponse
 
-            console.log("Error while fetching data : "+err);//we print a relevant error message and return
+            checkStatus(JSON.parse(err.responseText));//checking the status and showing notification accordingly
+            
+            console.log("Error while fetching data : "+err.responseText);//we print a relevant error message and return
             return ;
 
         }
@@ -92,8 +118,10 @@ function createComment(event){//function to create a comment
         url: "/comments/create",
         data: data,
 
-        success: function(data){//handling the case when we recieve the response
-            
+        success: function(data){//handling the case when we recieve the response                    
+
+            checkStatus(data);//checking the status and showing notification accordingly        
+
             let comment=document.createElement("li");//creating an li html element for the comment
             comment.setAttribute("id", `comment-${data.data.comment._id}`);
 
@@ -111,15 +139,15 @@ function createComment(event){//function to create a comment
 
             });
 
-            showNoty("Comment published", "success");
-
             return ;
 
         },
 
         error: function(err){//handling the case when there is an error while receiving the reponse
 
-            console.log("Error while fetching data : "+err);//we print a relevant error message and return 
+            checkStatus(JSON.parse(err.responseText));//checking the status and showing notification accordingly
+
+            console.log("Error while fetching data : "+err.responseText);//we print a relevant error message and return 
             return ;
 
         }
@@ -139,9 +167,9 @@ function deletePost(event, href){//function to delete a post taking the event(de
 
         success: function (data) {//handling the case when we recieve the response
 
-            document.getElementById(`post-${data.data.postId}`).remove();//removing the post whose delete button was clicked and then we return
+            checkStatus(data);//checking the status and showing notification accordingly
 
-            showNoty("Post and associated comments deleted", "success");
+            document.getElementById(`post-${data.data.postId}`).remove();//removing the post whose delete button was clicked and then we return
 
             return ;
             
@@ -149,7 +177,9 @@ function deletePost(event, href){//function to delete a post taking the event(de
 
         error: function(err){//handling the case when there is an error while receiving the reponse
 
-            console.log("Error while fetching data : "+err);//we print a relevant error message and return
+            checkStatus(JSON.parse(err.responseText));//checking the status and showing notification accordingly
+
+            console.log("Error while fetching data : "+err.responseText);//we print a relevant error message and return
             return ;
 
         }
@@ -233,6 +263,8 @@ postsForm.submit(function(event){//handling the event when the posts form is sub
 
         success: function (data) {//handling the case when we recieve the response
             
+            checkStatus(data);//checking the status and showing notification accordingly
+
             postsList.prepend(newPost(data.data.post));//appending at the top(prepend), the new post to the posts list and then we simply return 
 
             let deletePostBtn=document.querySelector(`#post-${data.data.post._id} .delete-post-button`);//getting the delete button of the post being appended above
@@ -247,15 +279,15 @@ postsForm.submit(function(event){//handling the event when the posts form is sub
 
             commentForm.addEventListener("submit", createComment);//handling the event when the above comment form is submitted
 
-            showNoty("Post published", "success");
-
             return ;
 
         },
 
         error: function(err){//handling the case when there is an error while receiving the reponse
 
-            console.log("Error while fetching data : "+err);//we print a relevant error message and simply return 
+            checkStatus(JSON.parse(err.responseText));//checking the status and showing notification accordingly
+
+            console.log("Error while fetching data : "+err.responseText);//we print a relevant error message and simply return 
             return ;
 
         }

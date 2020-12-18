@@ -5,7 +5,7 @@ const Post=require("../models/post");//requiring the Post model for which the po
 module.exports.create=async function(req, res){//creating a create action for handling the requests at "/comments/create" route, we're exporting it so that it can be accessed inside routes and it contains asynchronous statememts which are to be awaited i.e. indicated using async keyword
 
     try{//enclosing the code within try catch for error handling
-
+        
         let post=await Post.findOne({_id: req.body.post});//finding the post on which the comment has been made with the help of its id and we await the execution of this statement and then move below
 
         let comment=await Comment.create({//creating a new comment and we await the execution of this statement and then move below
@@ -29,13 +29,15 @@ module.exports.create=async function(req, res){//creating a create action for ha
                 path: "post"
             }]);                       
 
-            return res.status(200).json({//returing a json object with successful stauts, containing the above found comment inside the comment field, inside data field and a message as the response
+            return res.status(200).json({//returing a json object with successful stauts, containing the above found comment inside the comment field, inside data field, the status and a message as the response
 
                 data: {
                     comment: foundComment
                 },
 
-                message: "Comment created"
+                status: 200,
+
+                message: "Comment published"
 
             });
 
@@ -49,9 +51,22 @@ module.exports.create=async function(req, res){//creating a create action for ha
     }
     catch(err){//if there is an error in the code inside try
 
-        req.flash("error", err);//if the request to create a comment gives an error, then we add a relevant flash message
-        
-        return res.redirect("back");//redirecting the user to the current page
+        if(req.xhr){//checking if the request is an xhr request
+
+            return res.status(500).json({//returning a json object with an internal server error status, containing the status and the message as the response
+
+                status: 500,
+                message: "Couldn't publish comment"
+
+            });
+
+        }
+        else{
+
+            console.log("Error : "+err);//we print an error message
+            return res.redirect("back");//redirecting the user to the current page
+
+        }            
 
     }    
 
@@ -73,11 +88,13 @@ module.exports.destroy=async function(req, res){//destroy action for handling th
             
             if(req.xhr){//checking if the request is an xhr request
 
-                return res.status(200).json({//returing a json object with successful stauts, containing the comment id inside the commentId field, inside data field and a message as the response
+                return res.status(200).json({//returing a json object with successful stauts, containing the comment id inside the commentId field, inside data field, the status and a message as the response
 
                     data: {
                         commentId: req.params.id
                     },  
+
+                    status: 200,
 
                     message: "Comment deleted"
 
@@ -93,18 +110,41 @@ module.exports.destroy=async function(req, res){//destroy action for handling th
         }
         else{//if the user is not authorized to delete the comment
 
-            req.flash("error", "You cannot delete this comment");//if the user is not authorized to delete the comment, then we add a relevant flash message
+            if(req.xhr){//checking if the request is an xhr request
 
-            return res.redirect("back");//redirecting the user to the current page 
+                return res.status(401).json({//returning a json object with an unauthorized status, containing the status and the message as the response
+
+                    status: 401,
+                    message: "You cannot delete this comment"
+
+                });
+
+            }
+            else{
+                return res.redirect("back");//redirecting the user to the current page
+            }      
 
         }
 
     }
     catch(err){//if there is an error in the code inside try
 
-        req.flash("error", err);//if the request to delete a comment gives an error, then we add a relevant flash message
-        
-        return res.redirect("back");//redirecting the user to the current page
+        if(req.xhr){//checking if the request is an xhr request
+
+            return res.status(500).json({//returning a json object with an internal server error status, containing the status and the message as the response
+
+                status: 500,
+                message: "Couldn't publish comment"
+
+            });
+
+        }
+        else{
+
+            console.log("Error : "+err);//we print an error message
+            return res.redirect("back");//redirecting the user to the current page
+
+        }    
 
     }    
 
