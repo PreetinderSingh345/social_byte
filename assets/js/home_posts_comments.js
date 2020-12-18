@@ -1,3 +1,18 @@
+function showNoty(text, type){//function which makes a new noty notification for the provided text and type and then shows it
+
+    new Noty({
+
+        theme: "semanticui",
+        text: text,
+        type: type,
+        layout: "topRight",
+        timeout: 1500
+
+    }).show();
+
+}
+
+
 function deleteComment(event, href){//function to delete a comment, taking the event(delete button click) and the href(url where the delete comment request has to be sent) as the arguments
 
     event.preventDefault();//preventing the default behavaiour of the click event as we want to send the request via ajax
@@ -10,6 +25,8 @@ function deleteComment(event, href){//function to delete a comment, taking the e
         success: function (data) {//handling the case when we recieve the response
                    
             document.querySelector(`#comment-${data.data.commentId}`).remove();//we remove the comment element and return
+
+            showNoty("Comment deleted", "success");            
             
             return ;
 
@@ -94,6 +111,8 @@ function createComment(event){//function to create a comment
 
             });
 
+            showNoty("Comment published", "success");
+
             return ;
 
         },
@@ -121,6 +140,8 @@ function deletePost(event, href){//function to delete a post taking the event(de
         success: function (data) {//handling the case when we recieve the response
 
             document.getElementById(`post-${data.data.postId}`).remove();//removing the post whose delete button was clicked and then we return
+
+            showNoty("Post and associated comments deleted", "success");
 
             return ;
             
@@ -225,7 +246,9 @@ postsForm.submit(function(event){//handling the event when the posts form is sub
             let commentForm=document.querySelector(`#post-${data.data.post._id} .comment-forms`);//adding the event listener for the comment form of this newly added post
 
             commentForm.addEventListener("submit", createComment);//handling the event when the above comment form is submitted
-            
+
+            showNoty("Post published", "success");
+
             return ;
 
         },

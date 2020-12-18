@@ -11,8 +11,6 @@ module.exports.create=async function(req, res){//create action for handling the 
             user: req.user._id//setting the user who has posted the post to its unique id
 
         });  
-        
-        req.flash("success", "Post published");//if the request to create a post is successful, then we add a relevant flash message
 
         if(req.xhr){//checking if the request is an xhr request              
 
@@ -58,8 +56,6 @@ module.exports.destory=async function(req, res){//destroy action for handling th
 
             post.remove();//removing the post after deleting all the comments associated with it
 
-            req.flash("success", "Post and associated comments deleted");//if the request to delete a post is successful, then we add a relevant flash message
-
             if(req.xhr){//checking if the request is an xhr request                              
     
                 return res.status(200).json({//returning the json object with a success status, containing the deleted post's id inside postId field, inside data field and a message as the response
@@ -68,7 +64,7 @@ module.exports.destory=async function(req, res){//destroy action for handling th
                         postId: req.params.id
                     },
     
-                    message: "Post created"
+                    message: "Post deleted"
     
                 });     
     

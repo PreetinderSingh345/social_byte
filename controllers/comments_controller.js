@@ -20,8 +20,6 @@ module.exports.create=async function(req, res){//creating a create action for ha
 
         post.save();//telling the database to save the updated post which is currently stored in the ram
 
-        req.flash("success", "Comment puslished");//if the request to create a comment is successful, then we add a relevant flash message
-
         if(req.xhr){//checking if the request is an xhr request
 
             let foundComment=await Comment.findById(comment._id).populate([{//finding the created comment with the help of its id and populating its user and post fields
@@ -72,9 +70,7 @@ module.exports.destroy=async function(req, res){//destroy action for handling th
             let post=await Post.findByIdAndUpdate(comment.post, {$pull: {comments: req.params.id}});//updating the post on which the comment has been made, by finding the post by its id, pulling from its comments field the comment for which the delete request has been made we await the execution of this statement and then move below                            
 
             comment.remove();//deleting the comment from the comments collection after the comment has been deleted from the list of comments made on the post the comment belongs to
-
-            req.flash("success", "Comment deleted");//if the request to delete a comment is successful, then we add a relevant flash message
-
+            
             if(req.xhr){//checking if the request is an xhr request
 
                 return res.status(200).json({//returing a json object with successful stauts, containing the comment id inside the commentId field, inside data field and a message as the response

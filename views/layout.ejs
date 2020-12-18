@@ -9,22 +9,16 @@
             <%=title%>
         </title>
 
-        <!-- showing style and js link for flash message if success or error flash message is defined and is non empty -->
+        <!-- these noty links should be made available irrespective of whether the flash success/error message is defined and non-empty as we want to show noty notifications via ajax too -->
 
-        <%if((flash.success && flash.success.length!=0) || (flash.error && flash.error.length!=0)){%>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+        <!-- minified css CDN for noty -->
 
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
-            <!-- minified css CDN for noty -->
-
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
-            <!-- minified js CDN for noty -->
-
-        <%}%>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+        <!-- minified js CDN for noty -->
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <!-- minified js CDN for jquery and it is included below the noty links as noty has now stopped using jquery as it no longer requires it(included this jquery link in layout as we want it to be accessible to all the view files which use this layout wrapper) -->
-        
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+        <!-- minified js CDN for jquery and it is included below the noty links as noty has now stopped using jquery as it no longer requires it(included this jquery link in layout as we want it to be accessible to all the view files which use this layout wrapper) -->        
 
         <link rel="stylesheet" type="text/css" href="/css/layout.css">
         <!-- above is the link to the external stylesheet relative to the assets folder(path indicated by static middleware) -->
