@@ -1,5 +1,11 @@
 const mongoose=require("mongoose");//requiring mongoose and its existing instance will be used
 
+const multer=require("multer");//requiring multer and we're requiring it explicitly inside user's model, so that different models can use it specifically 
+
+const path=require("path");//requiring path for defining the location where the avatars will be stored(converts the below avatar path string to a path)
+
+const AVATAR_PATH=path.join("/uploads/users/avatars");//defining the path where the avatar of the user will be stored
+
 const userSchema=mongoose.Schema({//defining a user schema
 
     email: {//this email field is of type string, is necessary and is unique for each and every user
