@@ -23,7 +23,12 @@ function checkStatus(data){//function which checks the status of the data and sh
 
     if(data.status==401){
 
-        showNoty(data.message, "warning");
+        showNoty(data.message, "warning");//in case the user is not authorized to perform the action, we show a warning notification and direct the user to the sign-in page after 2.5s
+
+        setTimeout(function(){
+            document.location.href="/users/sign-in";
+        }, 2500);
+
         return ;
 
     }

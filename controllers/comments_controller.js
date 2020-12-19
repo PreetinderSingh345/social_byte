@@ -134,7 +134,7 @@ module.exports.destroy=async function(req, res){//destroy action for handling th
             return res.status(500).json({//returning a json object with an internal server error status, containing the status and the message as the response
 
                 status: 500,
-                message: "Couldn't publish comment"
+                message: "Couldn't delete comment"
 
             });
 

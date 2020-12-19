@@ -80,11 +80,27 @@ passport.checkAuthentication=function(req, res, next){//this checkAuthentication
         return next();
 
     }
+    else{
 
-    req.flash("error", "You're not signed in");//adding a relevant flash message
+        if(req.xhr){//checking if the request is an xhr request    
 
-    // if the user is not authenticated/signed-in, then we redirect the user to the sign in page
-    return res.redirect("/users/sign-in");
+            return res.status(401).json({//returning a json object with unauthorized status, containing the status and the message as the response
+
+                status: 401,
+                message: "Not authorized"
+
+            });
+
+        }
+        else{
+
+            req.flash("warning", "You're not signed in");//adding a relevant flash message            
+
+            return res.redirect("/users/sign-in");// if the user is not authenticated/signed-in, then we redirect the user to the sign in page
+
+        }
+
+    }
 
 }
 
