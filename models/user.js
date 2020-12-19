@@ -28,11 +28,35 @@ const userSchema=mongoose.Schema({//defining a user schema
         type: String,
         required: true
 
+    },
+
+    avatar: {
+
+        type: String
+
     }
 
 }, {
 
     timestamps: true//timestamps are added to get the information regarding the creation and the updation of the schema of a particular user
+
+});
+
+let storage=multer.diskStorage({//we're storing the avatars remotely, so we're using disk storage function of multer for defining the destination, filename and it returns a storage engine implementation for storing the files locally
+
+    // the destination, filename functions, take the req, file contained by the request and cb i.e. the callback function as the arguments
+
+    destination: function(req, file, cb){
+
+        cb(null, path.join(__dirname, "..", AVATAR_PATH));//we're providing the error(null means no error) and the location where the avatars will be stored(wrt the current file) to this callback function
+
+    },
+
+    filename: function(req, file, cb){
+
+        cb(null, file.fieldname+"-"+Date.now());//we're providing the error(null means no error) and the filename(date now(in ms) has been added to avoid similar file names)
+
+    }
 
 });
 
