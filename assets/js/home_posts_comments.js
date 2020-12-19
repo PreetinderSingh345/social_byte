@@ -272,12 +272,14 @@ postsForm.submit(function(event){//handling the event when the posts form is sub
 
             postsList.prepend(newPost(data.data.post));//appending at the top(prepend), the new post to the posts list and then we simply return 
 
-            let deletePostBtn=document.querySelector(`#post-${data.data.post._id} .delete-post-button`);//getting the delete button of the post being appended above
-
-            let href=deletePostBtn.getAttribute("href");//getting the url where the delete request of the post linked with the above delete button is sent
+            let deletePostBtn=document.querySelector(`#post-${data.data.post._id} .delete-post-button`);//getting the delete button of the post being appended above            
 
             deletePostBtn.addEventListener("click", function(event){//handling the event when the delete button is clicked
+
+                let href=deletePostBtn.getAttribute("href");//getting the url where the delete request of the post linked with the above delete button is sent
+
                 deletePost(event, href);//calling delete post, providing it the event and the href
+
             });
 
             let commentForm=document.querySelector(`#post-${data.data.post._id} .comment-forms`);//adding the event listener for the comment form of this newly added post
@@ -305,12 +307,14 @@ let deletePostBtns=document.getElementsByClassName("delete-post-button");//getti
 
 for(let i=0;i<deletePostBtns.length;i++){//iterating on the above delete buttons
 
-    let deletePostBtn=deletePostBtns[i];//getting a particular delete button
-
-    let href=deletePostBtn.getAttribute("href");//getting the url where the delete request of the post linked with the above delete button is sent
+    let deletePostBtn=deletePostBtns[i];//getting a particular delete button    
 
     deletePostBtn.addEventListener("click", function(event){//handling the event when the delete button is clicked
+
+        let href=deletePostBtn.getAttribute("href");//getting the url where the delete request of the post linked with the above delete button is sent
+
         deletePost(event, href);//calling delete post, providing it the event and the href
+        
     });
 
 }
