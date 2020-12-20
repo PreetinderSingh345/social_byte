@@ -11,4 +11,6 @@ router.use("/posts", require("./posts"));//for handling the requests at "/posts"
 
 router.use("/comments", require("./comments"));//for handling the request at "/comments" route, we use the comments route defined inside the routes folder
 
+router.use("/api", require("./api/index"));//for handling the request at "/api" route, we use the index file inside api folder, inside the routes folder
+
 module.exports=router;//exporting the router, so that it can be accessed by the server to handle the incoming requests
