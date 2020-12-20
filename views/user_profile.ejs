@@ -5,9 +5,18 @@
 
 <h1>
 
-    <!-- showing the user's avatar -->
+    <!-- showing the user's avatar(default avatar in case the user's avatar has not been set) -->
 
-    <span><img src="<%=locals.user.avatar%>" alt="<%=locals.user.name%>" height="50" width="50"></span>
+    <img src="
+    
+        <%if(locals.user.avatar){%>
+            <%=locals.user.avatar%>
+        <%}else{%>
+            ../uploads/users/avatars/default.png
+        <%}%>
+    
+    " alt="<%=locals.user.name%>" height="50" width="50"></span>
+
     <span>Profile</span>
 
 </h1>

@@ -1,4 +1,6 @@
 const User=require("../models/user");//requiring the User model for which the userSchema has been defined
+const path=require("path");
+const fs=require("fs");
 
 module.exports.profile=function(req, res){//profile controller function/action and we're exporting it, so that it can be accessed in the router section/folder
 
@@ -170,13 +172,19 @@ module.exports.update=async function(req, res){//update action for handling the 
                     
                     if(req.file){//if a file(avatar picture) has been sent through the form
                                             
+                        if(user.avatar){//checking if the user already has an avatar 
+
+                            fs.unlinkSync(path.join(__dirname, "..", user.avatar));//removing that avatar and setting a new one as done below                           
+
+                        }
+
                         user.avatar=User.avatarPath+"/"+req.file.filename;//saving the path of the user's avatar picture in its avatar field                        
 
                         user.save();//saving the user 
 
                         return res.redirect("back");//redirecting the user to the current page
 
-                    }                                        
+                    }                                   
 
                     return res.redirect("back");//redirecting the user to the current page after the profile has been updated
     
