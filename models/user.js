@@ -30,7 +30,7 @@ const userSchema=mongoose.Schema({//defining a user schema
 
     },
 
-    avatar: {
+    avatar: {//this avatar field is of type string, storing the path to the avatar of the user and is not necessary
 
         type: String
 

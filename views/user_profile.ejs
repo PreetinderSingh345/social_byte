@@ -4,7 +4,12 @@
 <!-- above is the link to the external stylesheet for user_profile specific styling -->
 
 <h1>
-    Profile
+
+    <!-- showing the user's avatar -->
+
+    <span><img src="<%=locals.user.avatar%>" alt="<%=locals.user.name%>" height="50" width="50"></span>
+    <span>Profile</span>
+
 </h1>
 
 <!-- showing the user's name and email -->

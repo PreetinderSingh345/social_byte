@@ -82,6 +82,8 @@ app.set("views", "./views");//providing the path to the views section/folder
 app.set("layout extractStyles", true);//extracting the styles and scripts from different files inside views(home  etc.) into the layout file
 app.set("layout extractScripts", true);
 
+app.use("/uploads", express.static(__dirname+"/uploads"));//using middleware to make the uploads path available to the browser
+
 app.use("/", require("./routes/index"));//using middleware to tell the browser that all the incoming requests should be handled by the index file in the routes folder
 
 app.listen(port, function(err){//telling the app to listen at the port number 8000 
