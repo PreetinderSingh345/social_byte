@@ -115,7 +115,7 @@ module.exports.destroy=async function(req, res){//destroy action for handling th
                 return res.status(401).json({//returning a json object with an unauthorized status, containing the status and the message as the response
 
                     status: 401,
-                    message: "You cannot delete this comment"
+                    message: "You're not signed in"
 
                 });
 

@@ -106,6 +106,28 @@
             </script>
 
         <%}%>
+
+        <!-- including the flash message to be shown, if the warning flash is defined and is non empty -->
+
+        <%if(flash.warning && flash.warning.length!=0){%>
+
+            <!-- adding the js code to include the noty message -->
+
+            <script>
+
+                new Noty({//making a new Noty obejct for the warning flash message and then showing it
+
+                    theme: "semanticui",
+                    text: "<%=flash.warning%>",
+                    type: "warning",
+                    layout: "topRight",
+                    timeout: 1500
+
+                }).show();
+
+            </script>
+
+        <%}%>
         
     </body>
 </html>

@@ -87,7 +87,7 @@ passport.checkAuthentication=function(req, res, next){//this checkAuthentication
             return res.status(401).json({//returning a json object with unauthorized status, containing the status and the message as the response
 
                 status: 401,
-                message: "Not authorized"
+                message: "You're not signed in"
 
             });
 

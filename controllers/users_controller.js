@@ -146,56 +146,64 @@ module.exports.friendsProfile=function(req, res){//friendsProfile action for han
 
 }
 
-module.exports.update=function(req, res){//update action for handling the update requests and we're exporting it,  so that it can be accessed inside routes
+module.exports.update=async function(req, res){//update action for handling the update requests, we're exporting it, so that it can be accessed inside routes and async keyword to indicate that this function contains asynchronous statements which are to be awaited at
 
-    if(req.params.id==req.user.id){//making sure that the profile to be updated is of the user who is signed in
+    try{
 
-        // making sure that the id of the user is not updated to an already existing value in the database as email is unique for each user
+        // the body parser is not able to parse a multiform enctype form, so we have to access infomation via a multer function as done below, using the static uploaded avatar function 
 
-        User.findOne({email: req.body.email}, function(err, user){//finding a user with the email as sent by the signed in user thorugh the update form
+        User.uploadedAvatar(req, res, async function(){//the callback function contains asynchronous statements which have to be awaited, indicated using async
+            
+            // the multer error will be handled by the catch statement           
 
-            if(err){//if there is an error while getting the user
+            if(req.params.id==req.user.id){//making sure that the profile to be updated is of the user who is signed in
 
-                req.flash("error", "Cannot update user");//adding a relevant flash message
-                
-                return res.redirect("back");//redirecting the user to the current page
+                // making sure that the id of the user is not updated to an already existing value in the database as email is unique for each user
+    
+                let user=await User.findOne({email: req.body.email});//finding a user with the email as sent by the signed in user thorugh the update form and we await till this statement is completed
 
-            }
+                if(!user || user.id==req.user.id){//if there is no existing user with the same email or is the one who is updating its profile
 
-            if(user && user.id!=req.user.id){//if a user with the same email has been found and is not the signed in user(the signed in user can choose to change only its name)
-
-                req.flash("error", "Cannot update user");//adding a relevant flash message
-
-                return res.redirect("back");//we redirect the user to the current page as we cannot have multiple users with the same email
-
-            }
-            else{//if there is no existing user with the same email
-
-                User.findByIdAndUpdate(req.params.id, req.body, function(err, user){//finding the user by its id(obtained from string params), updating it and we have a callback function to handle the situation
-
-                    if(err){//if there is an error while finding or updating the user
-        
-                        req.flash("error", "Cannot update user");//adding a relevant flash message
-                
-                        return res.redirect("back");//redirecting the user to the current page
-        
-                    }
-
+                    let user=await User.findByIdAndUpdate(req.params.id, req.body);//finding the user by its id(obtained from string params), updating it and we await till this statement is completed
+                        
                     req.flash("success", "User updated successfully");//adding a relevant flash message
-        
-                    return res.redirect("back");//redirecting the user to the current page after the profile has been updated
-        
-                });
+                    
+                    if(req.file){//if a file(avatar picture) has been sent through the form
+                                            
+                        user.avatar=User.avatarPath+"/"+req.file.filename;//saving the path of the user's avatar picture in its avatar field                        
 
+                        user.save();//saving the user 
+
+                        return res.redirect("back");//redirecting the user to the current page
+
+                    }                                        
+
+                    return res.redirect("back");//redirecting the user to the current page after the profile has been updated
+    
+                }
+                else{//if there is a user with the same email and is not the one who is updating its profile
+
+                    req.flash("error", "Email already taken");//adding a relevant flash message
+
+                    return res.redirect("back");//redirecting the user to the current page
+
+                }
+                    
+            }
+            else{//if the profile to be updated is not of the user who is signed in
+    
+                req.flash("warning", "You're not signed in");//adding a relevant flash message
+    
+                return res.redirect("/users/sign-in");//redirecting the user to sign in page
+    
             }
 
         });        
 
     }
-    else{//if the profile to be updated is not of the user who is signed in
+    catch(err){//if there is an error within the above try
 
-        req.flash("error", "You cannot update the user");//adding a relevant flash message
-
+        console.log("Error : "+err);//we print a relevant error message 
         return res.redirect("back");//redirecting the user to the current page
 
     }

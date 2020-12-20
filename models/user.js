@@ -54,11 +54,18 @@ let storage=multer.diskStorage({//we're storing the avatars remotely, so we're u
 
     filename: function(req, file, cb){
 
-        cb(null, file.fieldname+"-"+Date.now());//we're providing the error(null means no error) and the filename(date now(in ms) has been added to avoid similar file names)
+        cb(null, file.fieldname+"-"+Date.now());//we're providing the error(null means no error) and the filename(the fieldname is avatar and date now(in ms) has been added to avoid similar file names) to this callback function
 
     }
 
 });
+
+
+// static properties/functions
+
+userSchema.statics.uploadedAvatar=multer({storage: storage}).single("avatar");//allocating the above storage engine for storing the files to multer storage and indicating that only one file will be uploaded for the user's avatar
+
+userSchema.statics.avatarPath=AVATAR_PATH;//defining the avatar path, so that it is publically available
 
 const User=mongoose.model("User", userSchema);//defining a model which is to use this userSchema with name as User and storing it inside User const variable
 
