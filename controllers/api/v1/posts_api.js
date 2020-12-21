@@ -41,21 +41,35 @@ module.exports.destroy=async function(req, res){//destroy action for deleting a 
 
         let post=await Post.findById(req.params.id);//finding the post by its id(obtained from string param) and awating this statement to complete
 
-        await Comment.deleteMany({post: req.params.id});//deleting the comments associated with the above post and awating this statement to complete
+        if(req.user.id==post.user){//checking if the user who is trying to delete the post is the one who made it i.e. authorizing the request
 
-        post.remove();//deleting the post
-                            
-        return res.status(200).json({//returning a json object, with successful status, containing the id of the deleted post inside postId field, inside data field, status and a message as the response
+            await Comment.deleteMany({post: req.params.id});//deleting the comments associated with the above post and awating this statement to complete
 
-            data:{
-                postId: req.params.id
-            },
+            post.remove();//deleting the post
+                                
+            return res.status(200).json({//returning a json object, with successful status, containing the id of the deleted post inside postId field, inside data field, status and a message as the response
 
-            status: 200,
+                data:{
+                    postId: req.params.id
+                },
 
-            message: "Post and associated comments deleted"
+                status: 200,
 
-        });     
+                message: "Post and associated comments deleted"
+
+            });  
+
+        }
+        else{//if the user is not authorized to delete the post
+
+            return res.status(410).json({//returning a json object, with unauthorized status and a status and message as the response
+
+                status: 401,
+                message: "You cannot delete this post"
+
+            });
+
+        }   
 
     }
     catch(err){//if there is an error in the above code within try     
