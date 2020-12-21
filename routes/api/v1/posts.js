@@ -4,4 +4,6 @@ const postsApi=require("../../../controllers/api/v1/posts_api");//getting the po
 
 router.get("/", postsApi.index);//for handling the requests at "/" route, we use the index action of the posts api controller
 
+router.delete("/destroy/:id", postsApi.destroy);//for handling the requests at "/destroy" route(id is the string param containing the id of the post to be deleted), we use the destroy action of the posts api controller
+
 module.exports=router;//exporting the router, so that it can be accessed by the server to handle the incoming requests
