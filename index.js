@@ -68,7 +68,7 @@ app.use(flash());//using middleware to set up flash messages and it is done afte
 
 app.use(customMware.setFlash);//using setFlash middleware defined inside middleware file inside config folder to set the flash message
 
-app.use(express.urlencoded());//using middleware to decode the incoming request with the help of a parser function, so that we can access req.body object
+app.use(express.urlencoded({extended: true}));//using middleware to decode the incoming request with the help of a parser function, so that we can access req.body object(using extended to remove the warning)
 
 app.use(cookieParser());//using middleware to decode the cookie data, so that we can access req.cookies object, use res.cookie() etc.
 

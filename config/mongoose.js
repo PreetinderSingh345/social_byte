@@ -1,6 +1,6 @@
 const mongoose=require("mongoose");//requiring mongoose library
 
-mongoose.connect("mongodb://localhost/social_byte_development");//connect to the database
+mongoose.connect("mongodb://localhost/social_byte_development", {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true});//connect to the database(using new url parser, unified topology and create index to remove the warnings)
 
 const db=mongoose.connection;//obtaining the connection to check if it is successful or not
 
