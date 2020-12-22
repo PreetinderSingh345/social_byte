@@ -30,4 +30,28 @@ router.get("/sign-out", usersController.destroySession);//for handling the reque
 
 router.post("/update/:id", passport.checkAuthentication, usersController.update);//for handling the requests at "/update" route(id is passed as a string param containing the id of the user whose profile is to be updated), we call the update action of the usersController and we're using checkAuthentication as a middleware for making sure that the user can update only when it is signed in
 
+// for handling the requests at "/auth/google" route, we use passport.authenticate as a middleware for authenticating the request we're sending to google and inside the middleware, we define the strategy i.e. google and the scope i.e. the data we want google to provide about the user
+
+router.get("/auth/google", passport.authenticate(
+
+    "google", 
+
+    {scope:[
+
+        "profile",
+        "email",
+
+    ]}
+
+));
+
+// for handling the requests at "/auth/google/callback" route, we use passport.authenticate as a middleware for authenticating the request google is sending to us and inside the middleware, we define the strategy i.e. google and if the user is not authenticated by google, then we redirect the user to the sign in page else, we call the create session controller of the users controller(this route is the callback url)
+
+router.get("/auth/google/callback", passport.authenticate(
+
+    "google",
+    {failureRedirect: "/users/sign-in"}
+
+), usersController.createSession);
+
 module.exports=router;//exporting the router, so that it can be accessed by the server to handle the incoming requests
