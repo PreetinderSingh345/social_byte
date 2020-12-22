@@ -8,6 +8,7 @@ const session=require("express-session");//requiring express session(used for se
 const passport=require("passport");//requiring passport
 const passportLocal=require("./config/passport-local-strategy");//requiring the passport-local-strategy file we've set up inside config 
 const passportJwt=require("./config/passport-jwt-strategy");//requiring the passport-jwt-strategy file we've set up inside config
+const passportGoogle=require("./config/passport-google-oauth2-strategy");//requiring the passport-google-oauth2-strategy file we've setup inside config
 const mongoStore=require("connect-mongo")(session);//requiring connect mongo and we are required to pass the session(required above) whose information we are going to store using mongoStore
 const sassMiddleware=require("node-sass-middleware");//requiring the node sass middleware
 const flash=require("connect-flash");//requiring the connect flash middleware
