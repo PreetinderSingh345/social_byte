@@ -14,7 +14,7 @@ let transporter=nodemailer.createTransport({
     auth: {
 
         user: "demo12345user67890@gmail.com",
-        pass: "will check if sending an email works fine and will turn this feature on securely in production mode"
+        pass: "sending an email works fine and will turn this feature on securely in production mode"
 
     }
 

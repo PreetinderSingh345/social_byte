@@ -1,6 +1,7 @@
 const { listIndexes } = require("../models/comment");
 const Comment=require("../models/comment");//requiring the Comment model for which the commentSchema is defined
 const Post=require("../models/post");//requiring the Post model for which the postSchema is defined
+const commentsMailer=require("../mailers/comments_mailer");//requiring the comments mailer
 
 module.exports.create=async function(req, res){//creating a create action for handling the requests at "/comments/create" route, we're exporting it so that it can be accessed inside routes and it contains asynchronous statememts which are to be awaited i.e. indicated using async keyword
 
@@ -20,14 +21,20 @@ module.exports.create=async function(req, res){//creating a create action for ha
 
         post.save();//telling the database to save the updated post which is currently stored in the ram
 
-        if(req.xhr){//checking if the request is an xhr request
+        //finding the created comment with the help of its id, populating its user and post fields and this is done so that the comment passed to the new comment function of the comments mailer and as a response to the below xhr request contains its user and post information too
 
-            let foundComment=await Comment.findById(comment._id).populate([{//finding the created comment with the help of its id and populating its user and post fields
+        let foundComment=await Comment.findById(comment._id).populate([{
 
-                path: "user"
-            }, {
-                path: "post"
-            }]);                       
+            path: "user"
+        }, {
+            path: "post"
+        }]);    
+
+        // passing the above found comment to the new comment function of the comments mailer, which will send an email to the publisher of this comment
+
+        commentsMailer.newComment(foundComment);
+
+        if(req.xhr){//checking if the request is an xhr request                      
 
             return res.status(200).json({//returing a json object with successful stauts, containing the above found comment inside the comment field, inside data field, the status and a message as the response
 
