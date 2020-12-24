@@ -45,8 +45,6 @@ module.exports.create=async function(req, res){//creating a create action for ha
 
         });
 
-
-
         if(req.xhr){//checking if the request is an xhr request                      
 
             return res.status(200).json({//returing a json object with successful stauts, containing the above found comment inside the comment field, inside data field, the status and a message as the response

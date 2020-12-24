@@ -54,4 +54,12 @@ router.get("/auth/google/callback", passport.authenticate(
 
 ), usersController.createSession);
 
+// for handling the requests at "/reset-password-link" route, we use the resetPasswordLink action of the users controller
+
+router.post("/reset-password-link", usersController.resetPasswordLink);
+
+// for handling the requests at "/reset-password-page" route, we use the resetPasswordPage action of the users controller
+
+router.get("/reset-password-page", usersController.resetPasswordPage);
+
 module.exports=router;//exporting the router, so that it can be accessed by the server to handle the incoming requests

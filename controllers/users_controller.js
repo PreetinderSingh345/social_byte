@@ -1,6 +1,7 @@
 const User=require("../models/user");//requiring the User model for which the userSchema has been defined
 const path=require("path");
 const fs=require("fs");
+const resetPasswordMailer=require("../mailers/reset_password_mailer");
 
 module.exports.profile=function(req, res){//profile controller function/action and we're exporting it, so that it can be accessed in the router section/folder
 
@@ -215,5 +216,44 @@ module.exports.update=async function(req, res){//update action for handling the 
         return res.redirect("back");//redirecting the user to the current page
 
     }
+
+}
+
+// defining and exporting the resetPasswordLink action for handling the requests at "/reset-password-link" route
+
+module.exports.resetPasswordLink=function(req, res){
+
+    // find a user with the provided email id
+
+    User.findOne({email: req.body.email}, function(err, user){
+
+        // print an error message if there is any and redirect the user the to current page
+
+        if(err){
+
+            console.log("Cannot reset password : "+err);
+            return ;
+            
+        }
+
+        // provide the email to the reset password function of the reset password mailer and redirect the user to the current page
+                
+        resetPasswordMailer.resetPassword(req.body.email);   
+
+        return  res.redirect("back");        
+
+    });
+
+}
+
+//defining and exporting the resetPassswordPage action for handling the requests at "/reset-password-page" route
+
+module.exports.resetPasswordPage=function(req, res){
+
+    // rendering the reset_password page inside views and providing the title
+
+    return res.render("reset_password", {
+        title: "Reset Password"
+    });
 
 }
