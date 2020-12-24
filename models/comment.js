@@ -21,7 +21,18 @@ const commentSchema=new mongoose.Schema({//defining a comment schema
         type: mongoose.Schema.Types.ObjectId,//the post the comment is linked to is of the type ObjectId
         ref: "Post"//the ObjectId is the id of an object of the model type Post
 
-    }
+    },
+
+    // this likes field is an array of the likes(of type Like object id) which have been made on this comment
+
+    likes: [
+        {
+
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Like"
+
+        }
+    ]
 
 },{
 
