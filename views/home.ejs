@@ -3,74 +3,94 @@
 <link rel="stylesheet" type="text/css" href="/css/home.css">
 <!-- above is the link to the external stylesheet for home specific styling -->
 
-<h1>
-    Home
-</h1>
+<div id="home-container">
 
-<!-- posts section -->
+    <!-- posts -->
 
-<section id="posts">
+    <div id="posts">
 
-    <!-- posts heading -->
+        <!-- posts heading -->
 
-    <h4>Posts</h4>
+        <div id="posts-heading">
+            <span>Posts</span>
+        </div>
 
-    <!-- posts form taking the post content, submitting it and the action to be called is "/posts/create" i.e. the route where the request is sent -->
+        <!-- posts form taking the post content, submitting it and the action to be called is "/posts/create" i.e. the route where the request is sent -->
 
-    <!-- making the posts form visible to the user iff the user is signed in -->
+        <!-- making the posts form visible to the user iff the user is signed in -->
 
-    <%if(locals.user){%>
+        <%if(locals.user){%>
 
-        <form action="/posts/create" method="POST" id="posts-form">
+            <form action="/posts/create" method="POST" id="posts-form">
 
-            <textarea name="content" cols="30" rows="5" placeholder="Post here..." required></textarea>
-            <input type="submit" value="Post">
+                <textarea name="content" placeholder="What's on your mind? Post here..." required id="posts-form-content"></textarea>
+                <input type="submit" value="Post" id="posts-form-submit">
 
-        </form>
+            </form>
 
-    <%}%>
+        <%}else{%>
 
-    <!-- posts list showing all the posts and the posts should be shown even if the user is not signed in -->
-
-    <ul id="posts-list">
-
-        <%for(i of posts){%>
-
-            <!-- including the post -->
-            <%-include("_post");%>
+            <div id="sign-in-to-see">
+                <span>Sign in to post, comment and see other users</span> 
+            </div>
 
         <%}%>
-        
-    </ul>
 
-</section>
+        <!-- posts list showing all the posts and the posts should be shown even if the user is not signed in -->
 
-<!-- other users section -->
+        <ul id="posts-list">
 
-<section id="other-users">
+            <%for(i of posts){%>
 
-    <!-- showing the other users if the user is signed in -->
+                <!-- including the post -->
+                <%-include("_post");%>
 
-    <%if(locals.user){%>
-
-        <!-- iterating on all the users -->
-
-        <%for(i of users){%>
+            <%}%>
             
-            <!-- showing each user except the signed in user -->
+        </ul>
 
-            <%if(i.id!=locals.user.id){%>
+    </div>
 
-                <!-- we send the id of the user whose profile page is to be rendered -->
-                <a href="/users/profile/<%=i._id%>"><%=i.name%></a>
+    <!-- other users -->
+
+    <div id="other-users">
+
+        <!-- other users heading -->
+
+        <div id="other-users-heading">
+            <span>Other users</span>
+        </div>
+
+        <!-- showing other users if the user is signed in -->
+
+        <%if(locals.user){%>
+
+            <!-- iterating on all the users -->
+
+            <%for(i of users){%>
+                
+                <!-- showing each user except the signed in user -->
+
+                <%if(i.id!=locals.user.id){%>
+
+                    <div class="other-user-container">
+
+                        <i class="fas fa-caret-right"></i>
+
+                        <!-- we send the id of the user whose profile page is to be rendered -->
+                        <a href="/users/profile/<%=i._id%>" class="other-user"><%=i.name%></a>
+
+                    </div>                    
+
+                <%}%>
 
             <%}%>
 
         <%}%>
 
-    <%}%>
+    </div>
 
-</section>
+</div>
 
 <script src="/js/home_posts_comments.js"></script>
 <!-- above is the link to the external js file specific to the home page -->

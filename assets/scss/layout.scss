@@ -2,12 +2,32 @@
 
 body{
 
-    height: 97vh;
+    margin: 0;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;   
+    justify-content: space-between; 
+    height: 120vh;
     font-family: sans-serif;
-    background-color: rgb(210, 234, 241);
+    background-color: #273344;
+    min-width: 300px;
 
+}
+
+::-webkit-scrollbar{
+
+    height: 8px;
+    width: 8px;
+
+}
+
+::-webkit-scrollbar-track{
+    background-color: lightgrey;
+}
+
+::-webkit-scrollbar-thumb{
+    background-color: grey;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background-color: rgb(82, 80, 80);
 }

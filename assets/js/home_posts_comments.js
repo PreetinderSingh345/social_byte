@@ -76,22 +76,21 @@ function deleteComment(event, href){//function to delete a comment, taking the e
 
 let getComment=function(j){//function which returns the html content of the comment list item, which takes the comment object
 
-    return (`
+    return (`        
 
-        <!-- showing the user an option to delete a comment, if the user is signed in and is the one who made that comment -->
+        <div class="comment-author-delete-container">
 
-        <small>
+            <div class="comment-author">
+                <span>${j.user.name}</span>                                
+            </div>
 
-            <!-- we send the id of the comment to be deleted using string params -->
-            <a href="/comments/destroy/${j._id}">X</a>
+            <div class="delete-comment-container">
+                <a href="/comments/destroy/${j._id}" class="delete-comment-button"><i class="fas fa-times"></i></a>
+            </div>            
 
-        </small>
+        </div>
         
-        <!-- showing each comment made on a post along with the author -->
-
-        <span>${j.content}</span>                                
-        <span> : </span>
-        <span>${j.user.name}</span>        
+        <div class="comment-content">${j.content}</div>        
 
     `);
 
@@ -128,11 +127,13 @@ function createComment(event){//function to create a comment
             checkStatus(data);//checking the status and showing notification accordingly        
 
             let comment=document.createElement("li");//creating an li html element for the comment
+            
             comment.setAttribute("id", `comment-${data.data.comment._id}`);
+            comment.classList.add("comment");
 
             comment.innerHTML=getComment(data.data.comment);//setting the html content of the comment list item, obtained from the getComment function, to which we are passing the comment object 
 
-            document.getElementById(`post-comments-${data.data.comment.post._id}`).prepend(comment);//prepending the comment to its respective post
+            document.getElementById(`post-comments-${data.data.comment.post._id}`).prepend(comment);//prepending the comment to its respective post            
 
             let deleteCommentBtn=document.querySelector(`#comment-${data.data.comment._id} a`);//getting the delete button of this newly added comment
 
@@ -199,52 +200,35 @@ let newPost=function(i){//new post function which takes the new post and appends
 
     return $(`
 
-        <!-- to show each post and its related options -->
-
-        <li id="post-${i._id}">            
-        
-            <!-- showing the user an option to delete a post if the user is signed in and is the one who made it(.id gives the ObjectId in the string format and this format is preferred for ObjectId comparison) -->
-        
-            <small>
-    
-                <!-- we send the id of the post to be deleted using string params -->
-                <a class="delete-post-button" href="/posts/destroy/${i._id}">X</a>
-    
-            </small>   
-        
-            <!-- showing the content and the author of each post -->                
-        
-            <span>${i.content}</span>
-            <span> : </span>
-            <span>${i.user.name}</span>    
+        <li id="post-${i._id}" class="post">   
             
-            <!-- post comments container for each post -->
+            <div class="post-author-delete-container">
+        
+                <div class="post-author">
+                    <span>${i.user.name}</span>    
+                </div>
+            
+                <div class="delete-post-button-container">                
+                    <a class="delete-post-button" href="/posts/destroy/${i._id}">Delete post</a>
+                </div>
+        
+            </div> 
+            
+            <div class="post-content">${i.content}</div>    
         
             <div class="post-comments">
         
-                <!-- showing the user a form to add comments on each post when the user is signed in -->
-        
-                <!-- added comment forms class to the form to add comments to a post -->
-
                 <form action="/comments/create" method="POST" class="comment-forms">
-    
-                    <input type="text" name="content" placeholder="Comment here..." required>
-    
-                    <!-- hidden input for sending the id of the post on which the comment has been made -->
-    
-                    <input type="hidden" name="post" value="${i._id}">                           
-                    <input type="submit" value="Comment">
-    
-                </form>
-        
-                <!-- post comments list container to show all the comments made on a post and the comments should be made visible even if the user is not signed in -->
-        
-                <ul class="post-comments-list" id="post-comments-${i._id}">
 
-                    <!-- the comments will be shown when they are appended -->      
-        
-                </ul>
-        
+                    <input type="text" name="content" placeholder="Comment here..." required class="comment-forms-content">
+                    <input type="hidden" name="post" value="${i._id}">                           
+                    <input type="submit" value="Comment" class="comment-forms-submit">
+
+                </form>
+
+                <ul class="post-comments-list" id="post-comments-${i._id}" type="disc">                       
+                </ul> 
+                        
             </div>
         
         </li>

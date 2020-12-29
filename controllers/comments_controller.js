@@ -1,9 +1,12 @@
 const { listIndexes } = require("../models/comment");
 const Comment=require("../models/comment");//requiring the Comment model for which the commentSchema is defined
 const Post=require("../models/post");//requiring the Post model for which the postSchema is defined
-const commentsMailer=require("../mailers/comments_mailer");//requiring the comments mailer
-const queue = require("../config/kue");//requiring the queue created inside config
-const commentEmailWorker=require("../workers/comment_email_worker");//requiring the comment email worker
+
+// commented as of now, as the work load is less and there is no need to send an email 
+
+// const commentsMailer=require("../mailers/comments_mailer");//requiring the comments mailer
+// const queue = require("../config/kue");//requiring the queue created inside config
+// const commentEmailWorker=require("../workers/comment_email_worker");//requiring the comment email worker
 
 module.exports.create=async function(req, res){//creating a create action for handling the requests at "/comments/create" route, we're exporting it so that it can be accessed inside routes and it contains asynchronous statememts which are to be awaited i.e. indicated using async keyword
 
@@ -34,16 +37,18 @@ module.exports.create=async function(req, res){//creating a create action for ha
 
         // creating a job for the queue named emails and putting it inside it, passing the above found comment to the job, saving it inside the database and save has a callback associated with it and we print an error message if there is any error
 
-        let job=queue.create("emails", foundComment).save(function(err){            
+        // commented as of now, as the work load is less
 
-            if(err){
+        // let job=queue.create("emails", foundComment).save(function(err){            
 
-                 console.log("Couldn't enqueue job : "+err);
-                 return ;
+        //     if(err){
 
-            }           
+        //          console.log("Couldn't enqueue job : "+err);
+        //          return ;
 
-        });
+        //     }           
+
+        // });
 
         if(req.xhr){//checking if the request is an xhr request                      
 

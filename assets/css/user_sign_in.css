@@ -1,0 +1,122 @@
+#sign-in-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 300px;
+}
+
+#sign-in-heading {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: whitesmoke;
+}
+
+#sign-in-form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding: 0;
+  margin: 0;
+}
+
+@media only screen and (max-width: 800px) {
+  body #sign-in-form {
+    width: 80%;
+  }
+  body #reset-password-form {
+    width: 80%;
+  }
+}
+
+.sign-in-input {
+  margin: 10px 0;
+  border: none;
+  outline: none;
+  padding: 10px;
+  color: darkslategrey;
+  border-radius: 10px;
+  background-color: #d2ddeb;
+}
+
+#sign-in-button {
+  font-size: 1.2rem;
+  background-color: #a2c2ec;
+  font-weight: bold;
+}
+
+#sign-in-google-container {
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #32527b;
+  color: whitesmoke;
+}
+
+#sign-in-google {
+  text-decoration: none;
+  color: whitesmoke;
+}
+
+#reset-password-form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  width: 50%;
+  background-color: #86a8d4;
+  padding: 10px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+#reset-password-label {
+  font-weight: bold;
+  color: darkslategrey;
+  width: 25%;
+  min-width: 75px;
+  margin: 5px;
+  text-align: center;
+}
+
+.reset-password-input {
+  border: none;
+  outline: none;
+  background-color: #d2ddeb;
+  padding: 5px 10px;
+  color: darkslategrey;
+  border-radius: 10px;
+  width: 40%;
+  min-width: 120px;
+  margin: 5px;
+}
+
+#reset-password-submit {
+  background-color: #a2c2ec;
+  font-weight: bold;
+  font-size: 1rem;
+  width: 25%;
+  min-width: 75px;
+}
+
+@media only screen and (max-width: 310px) {
+  body #reset-password-label {
+    width: 100%;
+  }
+  body .reset-password-input {
+    width: 100%;
+  }
+  body #reset-password-submit {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 408px) {
+  body #reset-password-submit {
+    width: 100%;
+  }
+}

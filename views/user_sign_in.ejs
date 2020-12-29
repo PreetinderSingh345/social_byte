@@ -1,34 +1,52 @@
 <!-- sign in specific content -->
 
-<h1>
-    Sign In
-</h1>
+<link rel="stylesheet" type="text/css" href="/css/user_sign_in.css">
 
-<!-- form for signing in a user -->
+<div id="sign-in-container">
 
-<form action="/users/create-session" method="POST">
+    <div id="sign-in-heading">
 
-    <!-- inputs for taking email and password of the user and submitting the sign in data for validation -->
+        <span>Sign in</span>        
+        <i class="fas fa-sign-in-alt"></i>
 
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="password" name="password" placeholder="Password" required>
+    </div>
+    
+    <!-- form for signing in a user -->
+    
+    <form action="/users/create-session" method="POST" id="sign-in-form">
+    
+        <!-- inputs for taking email and password of the user and submitting the sign in data for validation -->
+    
+        <input type="email" name="email" placeholder="Email" required class="sign-in-input">
+        <input type="password" name="password" placeholder="Password" required class="sign-in-input">
+    
+        <input type="submit" value="Sign In" id="sign-in-button" class="sign-in-input">
+    
+    </form>
+    
+    <!-- social authentication via google -->
+    
+    <div id="sign-in-google-container">
 
-    <input type="submit" value="Sign In">
+        <a href="/users/auth/google" id="sign-in-google">Sign up/Sign in using</a>
+        <i class="fab fa-google"></i>
 
-</form>
+    </div>
+    
+    <!-- form for resetting the password  -->
+    
+    <form action="/users/reset-password-link" method="POST" id="reset-password-form">
+    
+        <label id="reset-password-label">
+        
+            <span>Reset password</span>
+            <i class="fas fa-sync-alt"></i>
+            
+        </label>
 
-<!-- social authentication via google -->
+        <input type="email" name="email" placeholder="Email" required id="reset-password-email" class="reset-password-input">
+        <input type="submit" id="reset-password-submit" class="reset-password-input">
+    
+    </form>
 
-<p>
-    <a href="/users/auth/google">Sign up/Sign in using Google</a>
-</p>
-
-<!-- form for resetting the password  -->
-
-<form action="/users/reset-password-link" method="POST">
-
-    <label>Reset password : </label>
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="submit">
-
-</form>
+</div>

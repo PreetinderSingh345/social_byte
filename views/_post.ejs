@@ -1,25 +1,33 @@
-<!-- to show each post and its related options -->
+<!-- post and related options -->
 
-<li id="post-<%=i._id%>">
+<li id="post-<%=i._id%>" class="post">
 
-    <!-- showing the user an option to delete a post if the user is signed in and is the one who made it(.id gives the ObjectId in the string format and this format is preferred for ObjectId comparison) -->
+    <!-- author and delete option of post -->
+    
+    <div class="post-author-delete-container">
 
-    <%if(locals.user && locals.user.id==i.user.id){%>                                        
+        <div class="post-author">
+            <span><%=i.user.name%></span>    
+        </div>
 
-        <small>
+        <!-- showing the user an option to delete a post if the user is signed in and is the one who made it(.id gives the ObjectId in the string format and this format is preferred for ObjectId comparison) -->
 
-            <!-- we send the id of the post to be deleted using string params -->
-            <a class="delete-post-button" href="/posts/destroy/<%=i._id%>">X</a>
+        <%if(locals.user && locals.user.id==i.user.id){%>                                        
 
-        </small>
+            <div class="delete-post-button-container">
 
-    <%}%>                
+                <!-- we send the id of the post to be deleted using string params -->
+                <a class="delete-post-button" href="/posts/destroy/<%=i._id%>">Delete post</a>
 
-    <!-- showing the content and the author of each post -->                
+            </div>
 
-    <span><%=i.content%></span>
-    <span> : </span>
-    <span><%=i.user.name%></span>    
+        <%}%> 
+
+    </div> 
+
+    <!-- post content -->
+    
+    <div class="post-content"><%=i.content%></div>                                  
     
     <!-- post comments container for each post -->
 
@@ -31,12 +39,12 @@
 
             <form action="/comments/create" method="POST" class="comment-forms">
 
-                <input type="text" name="content" placeholder="Comment here..." required>
+                <input type="text" name="content" placeholder="Comment here..." required class="comment-forms-content">
 
                 <!-- hidden input for sending the id of the post on which the comment has been made -->
 
                 <input type="hidden" name="post" value="<%=i._id%>">                           
-                <input type="submit" value="Comment">
+                <input type="submit" value="Comment" class="comment-forms-submit">
 
             </form>
 
@@ -44,8 +52,8 @@
 
         <!-- post comments list container to show all the comments made on a post and the comments should be made visible even if the user is not signed in -->
 
-        <ul class="post-comments-list" id="post-comments-<%=i._id%>">
-
+        <ul class="post-comments-list" id="post-comments-<%=i._id%>" type="disc">
+    
             <%for(j of i.comments){%>
 
                 <!-- including the comment -->
@@ -53,7 +61,7 @@
 
             <%}%>
 
-        </ul>
+        </ul>                 
 
     </div>
 

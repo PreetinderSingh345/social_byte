@@ -1,0 +1,57 @@
+#sign-up-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 300px;
+}
+
+#sign-up-heading {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: whitesmoke;
+}
+
+#sign-up-form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding: 0;
+  margin: 0;
+}
+
+@media only screen and (max-width: 800px) {
+  body #sign-up-form {
+    width: 80%;
+  }
+}
+
+.sign-up-input {
+  margin: 10px 0;
+  border: none;
+  outline: none;
+  padding: 10px;
+  color: darkslategrey;
+  border-radius: 10px;
+  background-color: #d2ddeb;
+}
+
+#sign-up-button {
+  font-size: 1.2rem;
+  background-color: #a2c2ec;
+  font-weight: bold;
+}
+
+#sign-up-google-container {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #32527b;
+  color: whitesmoke;
+}
+
+#sign-up-google {
+  text-decoration: none;
+  color: whitesmoke;
+}

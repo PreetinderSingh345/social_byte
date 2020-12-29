@@ -1,22 +1,30 @@
-<li id="comment-<%=j._id%>">
+<!-- comment and related options -->
 
-    <!-- showing the user an option to delete a comment, if the user is signed in and is the one who made that comment -->
-
-    <%if(locals.user && locals.user.id==j.user.id){%>
-
-        <small>
-
-            <!-- we send the id of the comment to be deleted using string params -->
-            <a href="/comments/destroy/<%=j._id%>" class="delete-comment-button">X</a>
-
-        </small>
-
-    <%}%>
+<li id="comment-<%=j._id%>" class="comment">    
     
-    <!-- showing each comment made on a post along with the author -->
+    <!-- author and delete option of comment -->
 
-    <span><%=j.content%></span>                                
-    <span> : </span>
-    <span><%=j.user.name%></span>
+    <div class="comment-author-delete-container">
+
+        <div class="comment-author">
+            <span><%=j.user.name%></span>                                
+        </div>
+
+        <%if(locals.user && locals.user.id==j.user.id){%>
+
+            <div class="delete-comment-container">
+    
+                <!-- we send the id of the comment to be deleted using string params -->
+                <a href="/comments/destroy/<%=j._id%>" class="delete-comment-button"><i class="fas fa-times"></i></a>
+    
+            </div>
+    
+        <%}%>
+
+    </div>
+
+    <!-- comment content -->
+    
+    <div class="comment-content"><%=j.content%></div>        
 
 </li>

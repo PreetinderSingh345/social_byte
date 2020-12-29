@@ -1,6 +1,34 @@
-footer{
+#footer-container{
+
+    height: 10vh;
+    background-color: #32527b;        
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+#stay-connected{
+
+    font-size: 1.2rem;
+    color: rgb(233, 232, 232);
+    font-weight: bold;
+
+}
+
+#connect{
     
-    padding: 10px;
-    background-color: lightpink;
-    
+    background-color: rgb(233, 232, 232);
+    padding: 5px;
+    border-radius: 10px;
+
+}
+
+.footer-icons{
+
+    font-size: 1.2rem;
+    color: darkslategrey;    
+    margin: 5px;
+
 }

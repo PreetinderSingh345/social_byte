@@ -3,48 +3,57 @@
 <link rel="stylesheet" type="text/css" href="/css/user_profile.css">
 <!-- above is the link to the external stylesheet for user_profile specific styling -->
 
-<h1>
+<div id="profile-container">
 
-    <!-- showing the user's avatar(default avatar in case the user's avatar has not been set) -->
+    <div id="profile-img-container">
 
-    <img src="
+        <!-- showing the user's avatar(default avatar in case the user's avatar has not been set) -->
     
-        <%if(locals.user.avatar){%>
-            <%=locals.user.avatar%>
-        <%}else{%>
-            ../uploads/users/avatars/default.png
-        <%}%>
+        <img src="
+        
+            <%if(locals.user.avatar){%>
+                <%=locals.user.avatar%>
+            <%}else{%>
+                ../uploads/users/avatars/default.png
+            <%}%>
+        
+        " alt="<%=locals.user.name%>" id="profile-img">
+        
     
-    " alt="<%=locals.user.name%>" height="50" width="50"></span>
+    </div>
+    
+    <!-- showing the user's name and email -->
+    
+    <div id="details-container">
+    
+        <div class="details"><%=user_profile.name%></div>
+        <div class="details"><%=user_profile.email%></div>
+    
+    </div>
+    
+    <!-- if the user is viewing its own profile, then we provide an option to the user to update its profile -->
+    
+    <%if(locals.user.id==user_profile.id){%>
+    
+        <!-- form for updating the user's profile -->
+    
+        <form action="/users/update/<%=user_profile._id%>" enctype="multipart/form-data" method="POST" id="update-profile-form">
+    
+            <!-- inputs for taking the new name and email from the user and are having the default values as the current values -->
+    
+            <label id="update-profile-label">
 
-    <span>Profile</span>
+                <span>Update profile</span>
+                <i class="fas fa-pen"></i>
+                
+            </label>
+            <input type="text" name="name" placeholder="Name" value="<%=user_profile.name%>" required class="update-profile-input">
+            <input type="email" name="email" placeholder="Email" value="<%=user_profile.email%>" required class="update-profile-input">
+            <input type="file" name="avatar" placeholder="Profile Picture" id="file-input" class="update-profile-input" value="file">
+            <input type="submit" value="Update" id="submit-button" class="update-profile-input">
+    
+        </form>
+    
+    <%}%>
 
-</h1>
-
-<!-- showing the user's name and email -->
-
-<ul>
-
-    <li>Name: <%=user_profile.name%></li>
-    <li>Email: <%=user_profile.email%></li>
-
-</ul>
-
-<!-- if the user is viewing its own profile, then we provide an option to the user to update its profile -->
-
-<%if(locals.user.id==user_profile.id){%>
-
-    <!-- form for updating the user's profile -->
-
-    <form action="/users/update/<%=user_profile._id%>" enctype="multipart/form-data" method="POST">
-
-        <!-- inputs for taking the new name and email from the user and are having the default values as the current values -->
-
-        <input type="text" name="name" placeholder="Your Name" value="<%=user_profile.name%>" required>
-        <input type="email" name="email" placeholder="Your Email" value="<%=user_profile.email%>" required>
-        <input type="file" name="avatar" placeholder="Profile Picture">
-        <input type="submit" value="Update">
-
-    </form>
-
-<%}%>
+</div>

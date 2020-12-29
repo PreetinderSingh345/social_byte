@@ -1,12 +1,14 @@
 <!-- header content common to different files -->
 
-<header>
-    Header
-</header>
-
 <!-- adding some options in the header section -->
 
-<ul>
+<div id="header-container">
+
+    <div id="heading">
+
+        <span>Social Byte</span> 
+
+    </div>
 
     <!-- checking if the user is signed in or not(we are using locals.user instead of user, so that we don't get an error that user is not defined as a property which not the case with locals.user which is a property) -->
 
@@ -14,40 +16,42 @@
 
         <!-- when locals.user has been assigned a value i.e. the user is signed in, then we display the user's name,email and a sign out link -->
 
-        <li>
+        <div id="profile-link-container">
 
             <!-- this name link takes the user to the profile page -->
-            <a href="/users/profile"><%=locals.user.name%></a>
+            <a href="/users/profile" class="header-link"><%=locals.user.name%></a>
 
-        </li>
+        </div>
 
-        <li><%=locals.user.email%></li>        
+        <div id="email-container"><%=locals.user.email%></div>
 
-        <li>
+        <div id="sign-out-link-container">
 
             <!-- providing a link for signing out -->
-            <a href="/users/sign-out">Sign Out</a>
+            <a href="/users/sign-out" class="header-link">Sign Out</a>
 
-        </li>
+        </div>
 
     <%}else{%>
 
         <!-- when the user is not signed in -->
 
-        <li>
+        <div id="sign-in-link-container"> 
 
             <!-- providing a link for signing in -->
-            <a href="/users/sign-in">Sign In</a>
+            <a href="/users/sign-in" class="header-link">Sign In</a>
 
-        </li>
+        </div>
 
-        <li>
+
+        <div id="sign-up-link-container">
 
             <!-- providing a link for signing up -->
-            <a href="/users/sign-up">Sign Up</a>
+            <a href="/users/sign-up" class="header-link">Sign Up</a>
 
-        </li>
+        </div>
+
 
     <%}%>
 
-</ul>
+</div>

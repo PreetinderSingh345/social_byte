@@ -1,4 +1,26 @@
-footer {
-  padding: 10px;
-  background-color: lightpink;
+#footer-container {
+  height: 10vh;
+  background-color: #32527b;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#stay-connected {
+  font-size: 1.2rem;
+  color: #e9e8e8;
+  font-weight: bold;
+}
+
+#connect {
+  background-color: #e9e8e8;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.footer-icons {
+  font-size: 1.2rem;
+  color: darkslategrey;
+  margin: 5px;
 }

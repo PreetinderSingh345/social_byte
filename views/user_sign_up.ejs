@@ -1,26 +1,38 @@
 <!-- sign up specific content -->
 
-<h1>
-    Sign Up
-</h1>
+<link rel="stylesheet" type="text/css" href="/css/user_sign_up.css">
 
-<!-- form for signing up a new user -->
+<div id="sign-up-container">
 
-<form action="/users/create" method="POST">
+    <div id="sign-up-heading">
 
-    <!-- inputs for taking name, email, password(confirming the password too) and submiting the sign up data for creating a new user -->
+        <span>Sign up</span>        
+        <i class="fas fa-user-plus"></i>
 
-    <input type="text" name="name" placeholder="Your Name" required>
-    <input type="email" name="email" placeholder="Your Email" required>
-    <input type="password" name="password" placeholder="Your Password" required>
-    <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+    </div>
+    
+    <!-- form for signing up a new user -->
+    
+    <form action="/users/create" method="POST" id="sign-up-form">
+    
+        <!-- inputs for taking name, email, password(confirming the password too) and submiting the sign up data for creating a new user -->
+    
+        <input type="text" name="name" placeholder="Your Name" required class="sign-up-input">
+        <input type="email" name="email" placeholder="Your Email" required class="sign-up-input">
+        <input type="password" name="password" placeholder="Your Password" required class="sign-up-input">
+        <input type="password" name="confirm_password" placeholder="Confirm Password" required class="sign-up-input">
+    
+        <input type="submit" value="Sign Up" id="sign-up-button" class="sign-up-input">
+    
+    </form>
+    
+    <!-- social authentication via google -->
+    
+    <div id="sign-up-google-container">
 
-    <input type="submit" value="Sign Up">
+        <a href="/users/auth/google" id="sign-up-google">Sign up/Sign in using</a>
+        <i class="fab fa-google"></i>
 
-</form>
+    </div>
 
-<!-- social authentication via google -->
-
-<p>
-    <a href="/users/auth/google">Sign up/Sign in using Google</a>
-</p>
+</div>
