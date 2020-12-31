@@ -1,0 +1,107 @@
+// comment forms
+
+.comment-forms{
+
+    margin: 5px;    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+}
+
+// comment forms content
+
+.comment-forms-content{
+
+    
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    outline: none;
+    color: darkslategrey;  
+    width: 70%;
+    margin: 5px;
+
+}
+
+// comment forms submit
+
+.comment-forms-submit{
+    
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: rgb(160, 160, 160);
+    color: whitesmoke;
+    outline: none;
+    font-size: 0.9rem;
+    margin: 5px;
+
+}
+
+// comment container
+
+.comment{
+
+    background-color: #d2ddeb;
+    padding: 5px;
+    margin: 10px 10px 10px -15px;    
+    border-radius: 10px;
+
+}
+
+// comment author delete container
+
+.comment-author-delete-container{
+
+    padding: 5px 10px;
+    margin: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 10px;
+    background-color: #c5d3e7;    
+
+}
+
+// comment author
+
+.comment-author{
+    
+    font-weight: bold;
+    font-size: 0.8rem;
+
+}
+
+// delete comment button
+
+.delete-comment-button{
+
+    text-decoration: none;
+    color: rgb(231, 59, 59);
+
+}
+
+// comment content 
+
+.comment-content{
+
+    padding: 5px;
+    margin: 5px;
+    background-color: #c5d3e7;
+    border-radius: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;   
+    max-height: 50px;
+    font-size: 0.9rem;
+
+}
+
+.comment-content:hover{
+
+    word-wrap: break-word;
+    overflow-y: auto;        
+
+}

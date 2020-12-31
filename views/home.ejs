@@ -3,6 +3,14 @@
 <link rel="stylesheet" type="text/css" href="/css/home.css">
 <!-- above is the link to the external stylesheet for home specific styling -->
 
+<link rel="stylesheet" type="text/css" href="/css/post.css">
+<!-- above is the link to the external stylesheet for post specific styling -->
+
+<link rel="stylesheet" type="text/css" href="/css/comment.css">
+<!-- above is the link to the external stylesheet for comment specific styling -->
+
+<!-- home container -->
+
 <div id="home-container">
 
     <!-- posts -->
@@ -38,7 +46,7 @@
 
         <!-- posts list showing all the posts and the posts should be shown even if the user is not signed in -->
 
-        <ul id="posts-list">
+        <ul id="posts-list" class="curved-scrollbar">
 
             <%for(i of posts){%>
 
@@ -53,7 +61,7 @@
 
     <!-- other users -->
 
-    <div id="other-users">
+    <div id="other-users" class="curved-scrollbar">
 
         <!-- other users heading -->
 

@@ -1,3 +1,5 @@
+// sign up container
+
 #sign-up-container{
     
     height: 100vh;
@@ -9,6 +11,8 @@
 
 }
 
+// sign up heading
+
 #sign-up-heading{
     
     font-size: 2rem;
@@ -17,6 +21,8 @@
     color: whitesmoke;
 
 }
+
+// sign up form
 
 #sign-up-form{
     
@@ -28,6 +34,8 @@
   
 }
 
+// adjusting the sign up form according to the device width 
+
 @media only screen and (max-width: 800px){
 
     body #sign-up-form{
@@ -35,6 +43,8 @@
     }
 
 }
+
+// sign up input
 
 .sign-up-input{
 
@@ -48,6 +58,8 @@
 
 }
 
+// sign up button
+
 #sign-up-button{    
 
     font-size: 1.2rem;
@@ -55,6 +67,8 @@
     font-weight: bold;
 
 }
+
+// sign up google container
 
 #sign-up-google-container{
     
@@ -64,6 +78,8 @@
     color: whitesmoke;
 
 }
+
+// sign up google
 
 #sign-up-google{
 

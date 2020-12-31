@@ -1,4 +1,3 @@
-/* common styling for all the files */
 body {
   margin: 0;
   display: flex;
@@ -6,8 +5,9 @@ body {
   justify-content: space-between;
   height: 120vh;
   font-family: sans-serif;
-  background-color: #273344;
   min-width: 300px;
+  background-image: linear-gradient(to top right, #273344, #92bfff, #273344);
+  min-height: 690px;
 }
 
 ::-webkit-scrollbar {

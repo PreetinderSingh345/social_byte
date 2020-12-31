@@ -1,0 +1,211 @@
+// posts heading
+
+#posts-heading{
+
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 5px;
+    background-color: rgb(199, 199, 199);
+    color: darkslategrey;
+    border-radius: 10px;
+    margin: 5px;
+
+}
+
+// posts form
+
+#posts-form{
+
+    margin: 0;    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;    
+    padding: 10px;    
+    background-color: #c9d8ec;
+    border-radius: 10px;
+    margin: 5px;
+
+}
+
+// posts form content
+
+#posts-form-content{
+
+    border: none;
+    height: 65%;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 100%;
+    padding: 5px 10px;
+    outline: none;
+    color: darkslategrey;   
+    background-color: whitesmoke; 
+    margin: 5px;    
+
+}
+
+// posts form submit button
+
+#posts-form-submit{
+
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 5px;
+    width: 70%;
+    background-color: rgb(160, 160, 160);
+    color: whitesmoke;
+    outline: none;
+    margin: 5px;
+
+}
+
+// sign in to see container
+
+#sign-in-to-see{
+
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #c9d8ec;
+    text-align: center;
+    font-weight: bold;
+    color: darkslategrey;
+
+}
+
+// posts list
+
+#posts-list{
+    
+    height: 65%;    
+    padding: 10px 10px 10px 0;
+    padding-left: 20px;
+    border-radius: 10px;
+    background-color: rgba(65, 97, 141, 0.8);
+    box-sizing: border-box;
+    overflow-y: auto;
+    color: darkslategrey;
+    margin: 5px;
+
+}
+
+// curved scrollbar
+
+.curved-scrollbar::-webkit-scrollbar-track{
+    border-radius: 0 10px 10px 0;
+}
+
+.curved-scrollbar::-webkit-scrollbar-thumb{
+    border-radius: 0 10px 10px 0;
+}
+
+// post container
+
+.post{
+
+    padding: 5px;
+    background-color: #d2ddeb;
+    border-radius: 10px;
+    margin: 5px;
+
+}
+
+// post author delete container
+
+.post-author-delete-container{
+    
+    padding: 5px 10px;
+    margin: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 10px;
+    background-color: #c5d3e7;    
+
+}
+
+// post author container
+
+.post-author{
+
+    border-radius: 10px;
+    padding: 5px;  
+    color: darkslategrey;  
+    font-weight: bold;
+    background-color: rgb(160, 160, 160);
+    font-size: 0.9rem;
+
+}
+
+// delete post button container
+
+.delete-post-button-container{
+
+    padding: 5px;
+    text-align: center;
+    border-radius: 10px;
+    background-color: rgb(231, 59, 59);
+
+}
+
+// delete post button
+
+.delete-post-button{
+
+    text-decoration: none;
+    color: whitesmoke;    
+    font-weight: bold;    
+    font-size: 0.9rem;
+
+}
+
+// post content
+
+.post-content{
+
+    padding: 5px;    
+    overflow: hidden;
+    text-overflow: ellipsis;   
+    max-height: 50px;
+    background-color: white;
+    color: darkslategrey;
+    border-radius: 10px;
+    margin: 5px;
+
+}
+
+.post-content:hover{
+
+    word-wrap: break-word;
+    overflow-y: auto;        
+
+}
+
+// post comments container
+
+.post-comments{
+
+    margin: 5px;
+    background-color: #9cb0ca;
+    border-radius: 10px;
+    padding: 5px;
+
+}
+
+// post comments list 
+
+.post-comments-list{
+
+    margin: 5px;        
+    border-radius: 10px;
+    background-color: rgb(201, 201, 201);    
+    overflow: hidden;
+    max-height: 180px;
+
+}
+
+.post-comments-list:hover{
+    overflow-y: auto;
+}

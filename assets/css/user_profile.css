@@ -1,4 +1,4 @@
-/* user_profile specific styling */
+/* user profile specific styling */
 #profile-container {
   height: 100vh;
   display: flex;
@@ -37,8 +37,9 @@
   font-size: 1.2rem;
   text-align: center;
   border-radius: 10px;
-  background-color: #cad1db;
+  background-color: whitesmoke;
   color: darkslategrey;
+  font-weight: bold;
 }
 
 #update-profile-form {

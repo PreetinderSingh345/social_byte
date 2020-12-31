@@ -1,4 +1,4 @@
-/* common styling for all the files */
+// body
 
 body{
 
@@ -8,10 +8,13 @@ body{
     justify-content: space-between; 
     height: 120vh;
     font-family: sans-serif;
-    background-color: #273344;
     min-width: 300px;
+    background-image: linear-gradient(to top right, #273344, rgb(146, 191, 255), #273344);
+    min-height: 690px;
 
 }
+
+// scrollbar
 
 ::-webkit-scrollbar{
 
