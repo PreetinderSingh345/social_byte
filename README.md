@@ -6,3 +6,11 @@
   - sign up/login
   - set up its profile
   - make and remove posts and comments, etc.
+
+ ## Running the app
+ 
+ Write the below command in terminal to run the app
+ 
+ ```bash
+  npm start
+ ```
